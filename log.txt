@@ -1,0 +1,1825 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.30s
+     Running `target/debug/lab_script_2`
+# Lab Script 2 - Control Systems Analysis and Design
+
+## Analyzing the first system:
+### Question 1:
+- Roots of the characteristic polynomial:
+r1: -1+0i
+r2: -1+1i
+r3: -1-1i
+- The system is stable.
+- The system is underdamped.
+- Damping ratios:
+ζ1: 1
+ζ2: 0.7071067811865475
+ζ3: 0.7071067811865475
+- Natural frequencies:
+ωn1: 1
+ωn2: 1.4142135623730951
+ωn3: 1.4142135623730951
+
+- Discrete Transfer Function: H(z) =
+2.61e-2z^3 + -1.66e-2z^2 + -2.52e-2z^1 + 1.75e-2
+------------------------------------------------
+1.00e0z^3 + -2.71e0z^2 + 2.45e0z^1 + -7.41e-1
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Question 2 (Step(1)):
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Simulating with zero noise...
+1st Order identified system: y[k] = -0.93y[k-1] + 0.07u[k-1]
+Residue mean of 1st order system: -0.004373731229676262
+2nd Order identified system: y[k] = -1.65y[k-1] + 0.68y[k-2] + 0.03u[k-1] + 0.00u[k-2]
+Residue mean of 2nd order system: -0.0007071936449631089
+3rd Order identified system: y[k] = -1.78y[k-1] + 0.77y[k-2] + 0.02y[k-3] + 0.03u[k-1] + 0.01u[k-2] + -0.02u[k-3]
+Residue mean of 3rd order system: 0.0004094044042413364
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+Residue mean of 4th order system: -0.000011574907834324203
+5th Order identified system: y[k] = -1.76y[k-1] + 0.02y[k-2] + 1.54y[k-3] + -0.64y[k-4] + -0.00y[k-5] + 0.03u[k-1] + 0.01u[k-2] + -0.04u[k-3] + -0.01u[k-4] + 0.02u[k-5]
+Residue mean of 5th order system: -2197.6238363487514
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+### Simulating with Gaussian noise...
+1st Order identified system: y[k] = -1.00y[k-1] + 0.01u[k-1] + 0.46e[k-1]
+Residue mean of 1st order system: 3.6817342511554534
+2nd Order identified system: y[k] = -1.99y[k-1] + 1.00y[k-2] + 0.03u[k-1] + -0.06u[k-2] + 1.00e[k-1]
+Residue mean of 2nd order system: -0.08841950091357184
+3rd Order identified system: y[k] = -2.70y[k-1] + 2.44y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.01u[k-3] + 1.00e[k-1]
+Residue mean of 3rd order system: 0.03189810756958541
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+Residue mean of 4th order system: -0.00000003865849346508521
+5th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + -0.00y[k-5] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 0.00u[k-5] + 1.00e[k-1]
+Residue mean of 5th order system: 0.00000002924842901298741
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Simulating with Gaussian noise at the end...
+1st Order identified system: y[k] = -0.87y[k-1] + 0.13u[k-1] + 0.88e[k-1]
+Residue mean of 1st order system: -0.007200656242625015
+2nd Order identified system: y[k] = -0.43y[k-1] + -0.41y[k-2] + 0.02u[k-1] + 0.14u[k-2] + 0.96e[k-1]
+Residue mean of 2nd order system: -0.006197640789726077
+3rd Order identified system: y[k] = -0.29y[k-1] + -0.22y[k-2] + -0.30y[k-3] + 0.03u[k-1] + 0.08u[k-2] + 0.10u[k-3] + 1.01e[k-1]
+Residue mean of 3rd order system: -0.004848631269449781
+4th Order identified system: y[k] = -0.22y[k-1] + -0.15y[k-2] + -0.18y[k-3] + -0.21y[k-4] + 0.03u[k-1] + 0.07u[k-2] + 0.04u[k-3] + 0.10u[k-4] + 1.03e[k-1]
+Residue mean of 4th order system: -0.003471532124647354
+5th Order identified system: y[k] = -0.19y[k-1] + -0.12y[k-2] + -0.12y[k-3] + -0.16y[k-4] + -0.13y[k-5] + 0.03u[k-1] + 0.07u[k-2] + 0.04u[k-3] + 0.03u[k-4] + 0.11u[k-5] + 1.04e[k-1]
+Residue mean of 5th order system: -0.002644534382009843
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Gaussian Input for Third Order System (0)
+Third order identified system: y[k] = -0.30y[k-1] + -0.22y[k-2] + -0.30y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.12u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.0012780640640901975
+### Gaussian Input for Third Order System (1)
+Third order identified system: y[k] = -0.29y[k-1] + -0.27y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.08u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.0029406719155381875
+### Gaussian Input for Third Order System (2)
+Third order identified system: y[k] = -0.27y[k-1] + -0.31y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.06u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.005380399153630988
+### Gaussian Input for Third Order System (3)
+Third order identified system: y[k] = -0.30y[k-1] + -0.25y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.08u[k-3] + 1.03e[k-1]
+Residue mean of third order system: 0.00023009073372593614
+### Gaussian Input for Third Order System (4)
+Third order identified system: y[k] = -0.31y[k-1] + -0.23y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.0031429611283942203
+### Gaussian Input for Third Order System (5)
+Third order identified system: y[k] = -0.27y[k-1] + -0.29y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.07u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.007405907111905361
+### Gaussian Input for Third Order System (6)
+Third order identified system: y[k] = -0.31y[k-1] + -0.24y[k-2] + -0.29y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.09u[k-3] + 1.07e[k-1]
+Residue mean of third order system: -0.0013219912283622048
+### Gaussian Input for Third Order System (7)
+Third order identified system: y[k] = -0.33y[k-1] + -0.20y[k-2] + -0.30y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.13u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.0021456525550903826
+### Gaussian Input for Third Order System (8)
+Third order identified system: y[k] = -0.31y[k-1] + -0.25y[k-2] + -0.30y[k-3] + 0.03u[k-1] + 0.01u[k-2] + 0.10u[k-3] + 0.95e[k-1]
+Residue mean of third order system: -0.009499696769832155
+### Gaussian Input for Third Order System (9)
+Third order identified system: y[k] = -0.30y[k-1] + -0.26y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.11u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.00039593104932653887
+### Gaussian Input for Third Order System (10)
+Third order identified system: y[k] = -0.29y[k-1] + -0.23y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.10u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.006755813073190587
+### Gaussian Input for Third Order System (11)
+Third order identified system: y[k] = -0.28y[k-1] + -0.27y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.09u[k-3] + 0.98e[k-1]
+Residue mean of third order system: -0.005019667574929752
+### Gaussian Input for Third Order System (12)
+Third order identified system: y[k] = -0.26y[k-1] + -0.28y[k-2] + -0.28y[k-3] + 0.02u[k-1] + 0.07u[k-2] + 0.09u[k-3] + 0.97e[k-1]
+Residue mean of third order system: 0.00028251370033206434
+### Gaussian Input for Third Order System (13)
+Third order identified system: y[k] = -0.26y[k-1] + -0.32y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.09u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.0012275309803832513
+### Gaussian Input for Third Order System (14)
+Third order identified system: y[k] = -0.31y[k-1] + -0.27y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.11u[k-3] + 0.96e[k-1]
+Residue mean of third order system: 0.0023782389640157188
+### Gaussian Input for Third Order System (15)
+Third order identified system: y[k] = -0.28y[k-1] + -0.31y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.11u[k-3] + 0.93e[k-1]
+Residue mean of third order system: 0.0016967701822693782
+### Gaussian Input for Third Order System (16)
+Third order identified system: y[k] = -0.28y[k-1] + -0.25y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.12u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.0016754171688765683
+### Gaussian Input for Third Order System (17)
+Third order identified system: y[k] = -0.29y[k-1] + -0.28y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.00853850996866103
+### Gaussian Input for Third Order System (18)
+Third order identified system: y[k] = -0.30y[k-1] + -0.30y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.09u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.003974708380608985
+### Gaussian Input for Third Order System (19)
+Third order identified system: y[k] = -0.28y[k-1] + -0.27y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 0.95e[k-1]
+Residue mean of third order system: 0.003576872143339732
+### Gaussian Input for Third Order System (20)
+Third order identified system: y[k] = -0.28y[k-1] + -0.26y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.06u[k-2] + 0.10u[k-3] + 0.95e[k-1]
+Residue mean of third order system: 0.004116237364422385
+### Gaussian Input for Third Order System (21)
+Third order identified system: y[k] = -0.29y[k-1] + -0.28y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.11u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.004661363614669531
+### Gaussian Input for Third Order System (22)
+Third order identified system: y[k] = -0.31y[k-1] + -0.26y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.11u[k-3] + 1.09e[k-1]
+Residue mean of third order system: 0.0014475142835951116
+### Gaussian Input for Third Order System (23)
+Third order identified system: y[k] = -0.29y[k-1] + -0.31y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.08u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.004006800757917535
+### Gaussian Input for Third Order System (24)
+Third order identified system: y[k] = -0.30y[k-1] + -0.29y[k-2] + -0.23y[k-3] + 0.02u[k-1] + 0.02u[k-2] + 0.13u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.002092751423343201
+### Gaussian Input for Third Order System (25)
+Third order identified system: y[k] = -0.27y[k-1] + -0.30y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.005037421213722237
+### Gaussian Input for Third Order System (26)
+Third order identified system: y[k] = -0.26y[k-1] + -0.30y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.06u[k-2] + 0.09u[k-3] + 0.98e[k-1]
+Residue mean of third order system: -0.004035972832976817
+### Gaussian Input for Third Order System (27)
+Third order identified system: y[k] = -0.30y[k-1] + -0.28y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.02u[k-2] + 0.10u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.0008340765338073963
+### Gaussian Input for Third Order System (28)
+Third order identified system: y[k] = -0.29y[k-1] + -0.26y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.11u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.006923114090683417
+### Gaussian Input for Third Order System (29)
+Third order identified system: y[k] = -0.30y[k-1] + -0.26y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.02u[k-2] + 0.11u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.0007232498325096337
+### Gaussian Input for Third Order System (30)
+Third order identified system: y[k] = -0.28y[k-1] + -0.26y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.09u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.004809952745008593
+### Gaussian Input for Third Order System (31)
+Third order identified system: y[k] = -0.30y[k-1] + -0.27y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.008925434020523206
+### Gaussian Input for Third Order System (32)
+Third order identified system: y[k] = -0.31y[k-1] + -0.25y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.0006584363832144758
+### Gaussian Input for Third Order System (33)
+Third order identified system: y[k] = -0.27y[k-1] + -0.30y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.004451108673984254
+### Gaussian Input for Third Order System (34)
+Third order identified system: y[k] = -0.29y[k-1] + -0.27y[k-2] + -0.30y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.07u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.0019722166395983996
+### Gaussian Input for Third Order System (35)
+Third order identified system: y[k] = -0.34y[k-1] + -0.23y[k-2] + -0.30y[k-3] + 0.03u[k-1] + 0.01u[k-2] + 0.10u[k-3] + 0.97e[k-1]
+Residue mean of third order system: 0.005987586834251334
+### Gaussian Input for Third Order System (36)
+Third order identified system: y[k] = -0.28y[k-1] + -0.29y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.09u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.005770353274548387
+### Gaussian Input for Third Order System (37)
+Third order identified system: y[k] = -0.30y[k-1] + -0.26y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.10e[k-1]
+Residue mean of third order system: 0.0005593760696718409
+### Gaussian Input for Third Order System (38)
+Third order identified system: y[k] = -0.28y[k-1] + -0.29y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.12u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.006040185925287085
+### Gaussian Input for Third Order System (39)
+Third order identified system: y[k] = -0.28y[k-1] + -0.31y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.11u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.005811775405300196
+### Gaussian Input for Third Order System (40)
+Third order identified system: y[k] = -0.29y[k-1] + -0.29y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.0005317857370877255
+### Gaussian Input for Third Order System (41)
+Third order identified system: y[k] = -0.27y[k-1] + -0.29y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.10u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.005856896993173718
+### Gaussian Input for Third Order System (42)
+Third order identified system: y[k] = -0.25y[k-1] + -0.32y[k-2] + -0.24y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.11u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.0038236071701174402
+### Gaussian Input for Third Order System (43)
+Third order identified system: y[k] = -0.27y[k-1] + -0.28y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.0032376438897770044
+### Gaussian Input for Third Order System (44)
+Third order identified system: y[k] = -0.29y[k-1] + -0.29y[k-2] + -0.24y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.12u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.0014426997123909225
+### Gaussian Input for Third Order System (45)
+Third order identified system: y[k] = -0.27y[k-1] + -0.31y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.08u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.0028022652565534347
+### Gaussian Input for Third Order System (46)
+Third order identified system: y[k] = -0.26y[k-1] + -0.30y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.0015030653749235256
+### Gaussian Input for Third Order System (47)
+Third order identified system: y[k] = -0.31y[k-1] + -0.24y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.004526376446553383
+### Gaussian Input for Third Order System (48)
+Third order identified system: y[k] = -0.24y[k-1] + -0.34y[k-2] + -0.25y[k-3] + 0.02u[k-1] + 0.06u[k-2] + 0.09u[k-3] + 0.92e[k-1]
+Residue mean of third order system: -0.005181090337076105
+### Gaussian Input for Third Order System (49)
+Third order identified system: y[k] = -0.31y[k-1] + -0.24y[k-2] + -0.29y[k-3] + 0.01u[k-1] + 0.10u[k-2] + 0.05u[k-3] + 0.85e[k-1]
+Residue mean of third order system: -0.007148242303800556
+### Gaussian Input for Third Order System (50)
+Third order identified system: y[k] = -0.32y[k-1] + -0.22y[k-2] + -0.32y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.08u[k-3] + 0.87e[k-1]
+Residue mean of third order system: -0.003049527837229843
+### Gaussian Input for Third Order System (51)
+Third order identified system: y[k] = -0.27y[k-1] + -0.28y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.11u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.0010631265212855978
+### Gaussian Input for Third Order System (52)
+Third order identified system: y[k] = -0.31y[k-1] + -0.30y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.09u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.0010331188265791736
+### Gaussian Input for Third Order System (53)
+Third order identified system: y[k] = -0.29y[k-1] + -0.30y[k-2] + -0.24y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.0014838866643364147
+### Gaussian Input for Third Order System (54)
+Third order identified system: y[k] = -0.31y[k-1] + -0.26y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.12u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.0005900805719336943
+### Gaussian Input for Third Order System (55)
+Third order identified system: y[k] = -0.32y[k-1] + -0.24y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.10u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.003667224424632023
+### Gaussian Input for Third Order System (56)
+Third order identified system: y[k] = -0.29y[k-1] + -0.29y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.07u[k-3] + 1.03e[k-1]
+Residue mean of third order system: 0.0013276496870844867
+### Gaussian Input for Third Order System (57)
+Third order identified system: y[k] = -0.27y[k-1] + -0.27y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.11u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.004796820341515898
+### Gaussian Input for Third Order System (58)
+Third order identified system: y[k] = -0.30y[k-1] + -0.27y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 1.10e[k-1]
+Residue mean of third order system: 0.002878628136063355
+### Gaussian Input for Third Order System (59)
+Third order identified system: y[k] = -0.28y[k-1] + -0.28y[k-2] + -0.23y[k-3] + 0.02u[k-1] + 0.07u[k-2] + 0.11u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.0013994054619358186
+### Gaussian Input for Third Order System (60)
+Third order identified system: y[k] = -0.30y[k-1] + -0.27y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 1.06e[k-1]
+Residue mean of third order system: 0.006589109020021934
+### Gaussian Input for Third Order System (61)
+Third order identified system: y[k] = -0.25y[k-1] + -0.32y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.08u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.0015637034477331002
+### Gaussian Input for Third Order System (62)
+Third order identified system: y[k] = -0.29y[k-1] + -0.25y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.07u[k-2] + 0.08u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.0033258559331691916
+### Gaussian Input for Third Order System (63)
+Third order identified system: y[k] = -0.28y[k-1] + -0.29y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 0.95e[k-1]
+Residue mean of third order system: 0.0006797713083189294
+### Gaussian Input for Third Order System (64)
+Third order identified system: y[k] = -0.34y[k-1] + -0.17y[k-2] + -0.35y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.09u[k-3] + 0.98e[k-1]
+Residue mean of third order system: 0.008504030233894575
+### Gaussian Input for Third Order System (65)
+Third order identified system: y[k] = -0.32y[k-1] + -0.21y[k-2] + -0.29y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.13u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.0015108748554456164
+### Gaussian Input for Third Order System (66)
+Third order identified system: y[k] = -0.30y[k-1] + -0.29y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.06u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.0026108097263242624
+### Gaussian Input for Third Order System (67)
+Third order identified system: y[k] = -0.28y[k-1] + -0.28y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.09u[k-3] + 0.92e[k-1]
+Residue mean of third order system: -0.006761424840394297
+### Gaussian Input for Third Order System (68)
+Third order identified system: y[k] = -0.30y[k-1] + -0.26y[k-2] + -0.23y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.13u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.0032456464038528323
+### Gaussian Input for Third Order System (69)
+Third order identified system: y[k] = -0.28y[k-1] + -0.29y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.05u[k-3] + 1.08e[k-1]
+Residue mean of third order system: 0.0016935626150390425
+### Gaussian Input for Third Order System (70)
+Third order identified system: y[k] = -0.31y[k-1] + -0.28y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.12u[k-3] + 1.00e[k-1]
+Residue mean of third order system: 0.0025381327614054793
+### Gaussian Input for Third Order System (71)
+Third order identified system: y[k] = -0.30y[k-1] + -0.26y[k-2] + -0.24y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.13u[k-3] + 1.09e[k-1]
+Residue mean of third order system: 0.004949509009758751
+### Gaussian Input for Third Order System (72)
+Third order identified system: y[k] = -0.28y[k-1] + -0.32y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.07u[k-2] + 0.06u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.00015531298508654866
+### Gaussian Input for Third Order System (73)
+Third order identified system: y[k] = -0.26y[k-1] + -0.32y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.08u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.005742599583112944
+### Gaussian Input for Third Order System (74)
+Third order identified system: y[k] = -0.28y[k-1] + -0.26y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.000456376450734709
+### Gaussian Input for Third Order System (75)
+Third order identified system: y[k] = -0.28y[k-1] + -0.26y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.0033935721199775592
+### Gaussian Input for Third Order System (76)
+Third order identified system: y[k] = -0.28y[k-1] + -0.27y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.09u[k-3] + 0.98e[k-1]
+Residue mean of third order system: 0.0009506123910979403
+### Gaussian Input for Third Order System (77)
+Third order identified system: y[k] = -0.29y[k-1] + -0.31y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.08u[k-3] + 0.98e[k-1]
+Residue mean of third order system: -0.0012059165268154448
+### Gaussian Input for Third Order System (78)
+Third order identified system: y[k] = -0.29y[k-1] + -0.31y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.02u[k-2] + 0.11u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.009437476945687003
+### Gaussian Input for Third Order System (79)
+Third order identified system: y[k] = -0.26y[k-1] + -0.30y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.09u[k-2] + 0.07u[k-3] + 0.95e[k-1]
+Residue mean of third order system: -0.007489149479509465
+### Gaussian Input for Third Order System (80)
+Third order identified system: y[k] = -0.29y[k-1] + -0.29y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.0014437660134179798
+### Gaussian Input for Third Order System (81)
+Third order identified system: y[k] = -0.28y[k-1] + -0.27y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.11e[k-1]
+Residue mean of third order system: -0.007403873431142797
+### Gaussian Input for Third Order System (82)
+Third order identified system: y[k] = -0.28y[k-1] + -0.26y[k-2] + -0.30y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.005491114633525163
+### Gaussian Input for Third Order System (83)
+Third order identified system: y[k] = -0.28y[k-1] + -0.27y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.12u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.006302734073513139
+### Gaussian Input for Third Order System (84)
+Third order identified system: y[k] = -0.32y[k-1] + -0.23y[k-2] + -0.32y[k-3] + 0.04u[k-1] + 0.01u[k-2] + 0.09u[k-3] + 0.84e[k-1]
+Residue mean of third order system: -0.007489588199257359
+### Gaussian Input for Third Order System (85)
+Third order identified system: y[k] = -0.26y[k-1] + -0.29y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.07u[k-2] + 0.08u[k-3] + 0.97e[k-1]
+Residue mean of third order system: -0.00352800407421233
+### Gaussian Input for Third Order System (86)
+Third order identified system: y[k] = -0.30y[k-1] + -0.28y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.11u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.005595607112210546
+### Gaussian Input for Third Order System (87)
+Third order identified system: y[k] = -0.26y[k-1] + -0.29y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.09u[k-3] + 1.00e[k-1]
+Residue mean of third order system: 0.0016190889853563005
+### Gaussian Input for Third Order System (88)
+Third order identified system: y[k] = -0.29y[k-1] + -0.27y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.0033611488031706892
+### Gaussian Input for Third Order System (89)
+Third order identified system: y[k] = -0.31y[k-1] + -0.28y[k-2] + -0.24y[k-3] + 0.02u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.0036149039613680967
+### Gaussian Input for Third Order System (90)
+Third order identified system: y[k] = -0.28y[k-1] + -0.28y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.06u[k-2] + 0.08u[k-3] + 1.12e[k-1]
+Residue mean of third order system: 0.0029554233590053484
+### Gaussian Input for Third Order System (91)
+Third order identified system: y[k] = -0.30y[k-1] + -0.30y[k-2] + -0.23y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 1.10e[k-1]
+Residue mean of third order system: 0.0012823176818597183
+### Gaussian Input for Third Order System (92)
+Third order identified system: y[k] = -0.35y[k-1] + -0.22y[k-2] + -0.27y[k-3] + 0.02u[k-1] + -0.00u[k-2] + 0.14u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.003343279537108368
+### Gaussian Input for Third Order System (93)
+Third order identified system: y[k] = -0.29y[k-1] + -0.27y[k-2] + -0.28y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 1.10e[k-1]
+Residue mean of third order system: -0.003765070060806367
+### Gaussian Input for Third Order System (94)
+Third order identified system: y[k] = -0.26y[k-1] + -0.27y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.08u[k-2] + 0.10u[k-3] + 1.00e[k-1]
+Residue mean of third order system: 0.0024990371108629004
+### Gaussian Input for Third Order System (95)
+Third order identified system: y[k] = -0.26y[k-1] + -0.31y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.08u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.004074759117244397
+### Gaussian Input for Third Order System (96)
+Third order identified system: y[k] = -0.26y[k-1] + -0.29y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.08u[k-2] + 0.09u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.0018192939642772798
+### Gaussian Input for Third Order System (97)
+Third order identified system: y[k] = -0.30y[k-1] + -0.30y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.03u[k-2] + 0.11u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.006667924023609143
+### Gaussian Input for Third Order System (98)
+Third order identified system: y[k] = -0.28y[k-1] + -0.28y[k-2] + -0.28y[k-3] + 0.02u[k-1] + 0.07u[k-2] + 0.08u[k-3] + 0.96e[k-1]
+Residue mean of third order system: 0.006338940739517752
+### Gaussian Input for Third Order System (99)
+Third order identified system: y[k] = -0.28y[k-1] + -0.29y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.0018655484122710143
+### Gaussian Input for Third Order System (100)
+Third order identified system: y[k] = -0.31y[k-1] + -0.25y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.14u[k-3] + 1.11e[k-1]
+Residue mean of third order system: 0.002509414806645548
+### Question 2 (RandomSignal(-1, 1)):
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Simulating with zero noise...
+1st Order identified system: y[k] = -0.99y[k-1] + 0.03u[k-1]
+Residue mean of 1st order system: 0.012911331688026108
+2nd Order identified system: y[k] = -1.23y[k-1] + 0.26y[k-2] + 0.03u[k-1] + 0.02u[k-2]
+Residue mean of 2nd order system: 0.008876748538752595
+3rd Order identified system: y[k] = -1.82y[k-1] + 0.83y[k-2] + 0.00y[k-3] + 0.03u[k-1] + 0.01u[k-2] + -0.02u[k-3]
+Residue mean of 3rd order system: -0.0009217019092314009
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+Residue mean of 4th order system: 0.0000000011245547169337622
+5th Order identified system: y[k] = -1.72y[k-1] + -0.27y[k-2] + 1.72y[k-3] + -0.69y[k-4] + 0.00y[k-5] + 0.03u[k-1] + 0.01u[k-2] + -0.04u[k-3] + -0.01u[k-4] + 0.02u[k-5]
+Residue mean of 5th order system: -9.661754713875782
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+### Simulating with Gaussian noise...
+1st Order identified system: y[k] = -1.01y[k-1] + -0.00u[k-1] + 1.97e[k-1]
+Residue mean of 1st order system: -2.7014688576169794
+2nd Order identified system: y[k] = -2.02y[k-1] + 1.02y[k-2] + 0.02u[k-1] + -0.00u[k-2] + 0.86e[k-1]
+Residue mean of 2nd order system: -1.6168374954117208
+3rd Order identified system: y[k] = -2.66y[k-1] + 2.35y[k-2] + -0.69y[k-3] + 0.02u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.99e[k-1]
+Residue mean of 3rd order system: -0.4799182975394027
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + -0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+Residue mean of 4th order system: 0.000000019725035505929743
+5th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + -0.00y[k-5] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 0.00u[k-5] + 1.00e[k-1]
+Residue mean of 5th order system: -0.00000001871675733261524
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Simulating with Gaussian noise at the end...
+1st Order identified system: y[k] = -0.78y[k-1] + 0.02u[k-1] + 1.15e[k-1]
+Residue mean of 1st order system: -0.002040601504796154
+2nd Order identified system: y[k] = -0.45y[k-1] + -0.41y[k-2] + 0.02u[k-1] + 0.03u[k-2] + 1.09e[k-1]
+Residue mean of 2nd order system: -0.0004209376329477529
+3rd Order identified system: y[k] = -0.28y[k-1] + -0.32y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.02u[k-3] + 1.03e[k-1]
+Residue mean of 3rd order system: -0.0013247721784507554
+4th Order identified system: y[k] = -0.19y[k-1] + -0.24y[k-2] + -0.24y[k-3] + -0.18y[k-4] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.02u[k-4] + 1.04e[k-1]
+Residue mean of 4th order system: -0.002765380435928032
+5th Order identified system: y[k] = -0.16y[k-1] + -0.17y[k-2] + -0.19y[k-3] + -0.18y[k-4] + -0.14y[k-5] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 0.03u[k-4] + 0.02u[k-5] + 1.02e[k-1]
+Residue mean of 5th order system: -0.0038597509827359836
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Gaussian Input for Third Order System (0)
+Third order identified system: y[k] = -0.29y[k-1] + -0.32y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.02u[k-3] + 1.06e[k-1]
+Residue mean of third order system: 0.03614503612400053
+### Gaussian Input for Third Order System (1)
+Third order identified system: y[k] = -0.32y[k-1] + -0.29y[k-2] + -0.32y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.97e[k-1]
+Residue mean of third order system: -0.0017578651369595112
+### Gaussian Input for Third Order System (2)
+Third order identified system: y[k] = -0.34y[k-1] + -0.30y[k-2] + -0.22y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.010294734785042002
+### Gaussian Input for Third Order System (3)
+Third order identified system: y[k] = -0.32y[k-1] + -0.33y[k-2] + -0.21y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.014446807970355212
+### Gaussian Input for Third Order System (4)
+Third order identified system: y[k] = -0.32y[k-1] + -0.30y[k-2] + -0.23y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.08e[k-1]
+Residue mean of third order system: -0.010450638209676122
+### Gaussian Input for Third Order System (5)
+Third order identified system: y[k] = -0.31y[k-1] + -0.29y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.00e[k-1]
+Residue mean of third order system: 0.024094788743103616
+### Gaussian Input for Third Order System (6)
+Third order identified system: y[k] = -0.34y[k-1] + -0.28y[k-2] + -0.30y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.97e[k-1]
+Residue mean of third order system: -0.035715758179296425
+### Gaussian Input for Third Order System (7)
+Third order identified system: y[k] = -0.37y[k-1] + -0.34y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 0.95e[k-1]
+Residue mean of third order system: 0.03478998404652703
+### Gaussian Input for Third Order System (8)
+Third order identified system: y[k] = -0.27y[k-1] + -0.31y[k-2] + -0.22y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.04072090041928382
+### Gaussian Input for Third Order System (9)
+Third order identified system: y[k] = -0.30y[k-1] + -0.28y[k-2] + -0.30y[k-3] + 0.04u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.02327132992843802
+### Gaussian Input for Third Order System (10)
+Third order identified system: y[k] = -0.28y[k-1] + -0.32y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.08e[k-1]
+Residue mean of third order system: 0.0013700127118530096
+### Gaussian Input for Third Order System (11)
+Third order identified system: y[k] = -0.32y[k-1] + -0.32y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.93e[k-1]
+Residue mean of third order system: -0.03120501386309636
+### Gaussian Input for Third Order System (12)
+Third order identified system: y[k] = -0.31y[k-1] + -0.33y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.95e[k-1]
+Residue mean of third order system: 0.028986817609748902
+### Gaussian Input for Third Order System (13)
+Third order identified system: y[k] = -0.32y[k-1] + -0.29y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.95e[k-1]
+Residue mean of third order system: 0.00972494778227625
+### Gaussian Input for Third Order System (14)
+Third order identified system: y[k] = -0.35y[k-1] + -0.27y[k-2] + -0.29y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.07e[k-1]
+Residue mean of third order system: -0.045447606362425175
+### Gaussian Input for Third Order System (15)
+Third order identified system: y[k] = -0.35y[k-1] + -0.33y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.038824887566992386
+### Gaussian Input for Third Order System (16)
+Third order identified system: y[k] = -0.29y[k-1] + -0.29y[k-2] + -0.22y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.92e[k-1]
+Residue mean of third order system: 0.025449705097551463
+### Gaussian Input for Third Order System (17)
+Third order identified system: y[k] = -0.32y[k-1] + -0.33y[k-2] + -0.20y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.01686099482204964
+### Gaussian Input for Third Order System (18)
+Third order identified system: y[k] = -0.32y[k-1] + -0.31y[k-2] + -0.30y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 1.06e[k-1]
+Residue mean of third order system: 0.006891817784909801
+### Gaussian Input for Third Order System (19)
+Third order identified system: y[k] = -0.29y[k-1] + -0.34y[k-2] + -0.30y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.90e[k-1]
+Residue mean of third order system: -0.113546604585115
+### Gaussian Input for Third Order System (20)
+Third order identified system: y[k] = -0.32y[k-1] + -0.35y[k-2] + -0.25y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.04511564485876953
+### Gaussian Input for Third Order System (21)
+Third order identified system: y[k] = -0.27y[k-1] + -0.32y[k-2] + -0.23y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.03132598291719516
+### Gaussian Input for Third Order System (22)
+Third order identified system: y[k] = -0.31y[k-1] + -0.27y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.09e[k-1]
+Residue mean of third order system: 0.004199382750233528
+### Gaussian Input for Third Order System (23)
+Third order identified system: y[k] = -0.35y[k-1] + -0.30y[k-2] + -0.21y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.04046275383090747
+### Gaussian Input for Third Order System (24)
+Third order identified system: y[k] = -0.31y[k-1] + -0.35y[k-2] + -0.29y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.02u[k-3] + 1.03e[k-1]
+Residue mean of third order system: 0.09198793251139138
+### Gaussian Input for Third Order System (25)
+Third order identified system: y[k] = -0.29y[k-1] + -0.32y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.91e[k-1]
+Residue mean of third order system: -0.004527974397311905
+### Gaussian Input for Third Order System (26)
+Third order identified system: y[k] = -0.31y[k-1] + -0.24y[k-2] + -0.21y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.04123851998633577
+### Gaussian Input for Third Order System (27)
+Third order identified system: y[k] = -0.34y[k-1] + -0.32y[k-2] + -0.18y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.98e[k-1]
+Residue mean of third order system: -0.017997578883429833
+### Gaussian Input for Third Order System (28)
+Third order identified system: y[k] = -0.29y[k-1] + -0.33y[k-2] + -0.22y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.92e[k-1]
+Residue mean of third order system: -0.006964325871316079
+### Gaussian Input for Third Order System (29)
+Third order identified system: y[k] = -0.31y[k-1] + -0.27y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.005089119705077705
+### Gaussian Input for Third Order System (30)
+Third order identified system: y[k] = -0.29y[k-1] + -0.31y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.004860418682923605
+### Gaussian Input for Third Order System (31)
+Third order identified system: y[k] = -0.32y[k-1] + -0.32y[k-2] + -0.22y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.07e[k-1]
+Residue mean of third order system: -0.00789513218579009
+### Gaussian Input for Third Order System (32)
+Third order identified system: y[k] = -0.36y[k-1] + -0.32y[k-2] + -0.30y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.06e[k-1]
+Residue mean of third order system: 0.006598458334675066
+### Gaussian Input for Third Order System (33)
+Third order identified system: y[k] = -0.34y[k-1] + -0.33y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.0282227662605195
+### Gaussian Input for Third Order System (34)
+Third order identified system: y[k] = -0.36y[k-1] + -0.30y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.04u[k-3] + 1.09e[k-1]
+Residue mean of third order system: 0.04027581939922995
+### Gaussian Input for Third Order System (35)
+Third order identified system: y[k] = -0.35y[k-1] + -0.27y[k-2] + -0.31y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.013647911355918165
+### Gaussian Input for Third Order System (36)
+Third order identified system: y[k] = -0.30y[k-1] + -0.33y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.93e[k-1]
+Residue mean of third order system: -0.06252271600329101
+### Gaussian Input for Third Order System (37)
+Third order identified system: y[k] = -0.37y[k-1] + -0.35y[k-2] + -0.17y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.014200933147263646
+### Gaussian Input for Third Order System (38)
+Third order identified system: y[k] = -0.29y[k-1] + -0.32y[k-2] + -0.24y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.98e[k-1]
+Residue mean of third order system: -0.0014853289944098346
+### Gaussian Input for Third Order System (39)
+Third order identified system: y[k] = -0.30y[k-1] + -0.28y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.007035466927272582
+### Gaussian Input for Third Order System (40)
+Third order identified system: y[k] = -0.29y[k-1] + -0.33y[k-2] + -0.31y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.10e[k-1]
+Residue mean of third order system: -0.0051378734789068225
+### Gaussian Input for Third Order System (41)
+Third order identified system: y[k] = -0.36y[k-1] + -0.28y[k-2] + -0.22y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.01224913954108383
+### Gaussian Input for Third Order System (42)
+Third order identified system: y[k] = -0.29y[k-1] + -0.27y[k-2] + -0.22y[k-3] + 0.01u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.031017994372730753
+### Gaussian Input for Third Order System (43)
+Third order identified system: y[k] = -0.29y[k-1] + -0.30y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.09e[k-1]
+Residue mean of third order system: 0.005831480850481281
+### Gaussian Input for Third Order System (44)
+Third order identified system: y[k] = -0.37y[k-1] + -0.31y[k-2] + -0.28y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.04u[k-3] + 0.94e[k-1]
+Residue mean of third order system: -0.07132008614740398
+### Gaussian Input for Third Order System (45)
+Third order identified system: y[k] = -0.34y[k-1] + -0.28y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 0.98e[k-1]
+Residue mean of third order system: 0.004875953250201631
+### Gaussian Input for Third Order System (46)
+Third order identified system: y[k] = -0.35y[k-1] + -0.33y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 1.03e[k-1]
+Residue mean of third order system: 0.0412023496393656
+### Gaussian Input for Third Order System (47)
+Third order identified system: y[k] = -0.34y[k-1] + -0.39y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.96e[k-1]
+Residue mean of third order system: 0.07690455467554883
+### Gaussian Input for Third Order System (48)
+Third order identified system: y[k] = -0.28y[k-1] + -0.36y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.89e[k-1]
+Residue mean of third order system: 0.01007029461614675
+### Gaussian Input for Third Order System (49)
+Third order identified system: y[k] = -0.32y[k-1] + -0.31y[k-2] + -0.25y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.016907651095920663
+### Gaussian Input for Third Order System (50)
+Third order identified system: y[k] = -0.37y[k-1] + -0.38y[k-2] + -0.19y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.07367444724466803
+### Gaussian Input for Third Order System (51)
+Third order identified system: y[k] = -0.33y[k-1] + -0.33y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.03375968423798373
+### Gaussian Input for Third Order System (52)
+Third order identified system: y[k] = -0.30y[k-1] + -0.29y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.005186602812322453
+### Gaussian Input for Third Order System (53)
+Third order identified system: y[k] = -0.33y[k-1] + -0.33y[k-2] + -0.24y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.037261126520615105
+### Gaussian Input for Third Order System (54)
+Third order identified system: y[k] = -0.30y[k-1] + -0.27y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.00e[k-1]
+Residue mean of third order system: 0.022074884664915407
+### Gaussian Input for Third Order System (55)
+Third order identified system: y[k] = -0.33y[k-1] + -0.28y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.98e[k-1]
+Residue mean of third order system: 0.030049496704193764
+### Gaussian Input for Third Order System (56)
+Third order identified system: y[k] = -0.27y[k-1] + -0.24y[k-2] + -0.23y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.07e[k-1]
+Residue mean of third order system: -0.012842473132238668
+### Gaussian Input for Third Order System (57)
+Third order identified system: y[k] = -0.28y[k-1] + -0.32y[k-2] + -0.20y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.028811018139953723
+### Gaussian Input for Third Order System (58)
+Third order identified system: y[k] = -0.29y[k-1] + -0.30y[k-2] + -0.30y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.02u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.016482263631823847
+### Gaussian Input for Third Order System (59)
+Third order identified system: y[k] = -0.33y[k-1] + -0.29y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.013370323409025215
+### Gaussian Input for Third Order System (60)
+Third order identified system: y[k] = -0.32y[k-1] + -0.28y[k-2] + -0.19y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.10e[k-1]
+Residue mean of third order system: -0.003285665287384583
+### Gaussian Input for Third Order System (61)
+Third order identified system: y[k] = -0.30y[k-1] + -0.35y[k-2] + -0.24y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.08e[k-1]
+Residue mean of third order system: -0.010117730328477202
+### Gaussian Input for Third Order System (62)
+Third order identified system: y[k] = -0.34y[k-1] + -0.31y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.04606986738821262
+### Gaussian Input for Third Order System (63)
+Third order identified system: y[k] = -0.33y[k-1] + -0.32y[k-2] + -0.18y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.01900321453737905
+### Gaussian Input for Third Order System (64)
+Third order identified system: y[k] = -0.30y[k-1] + -0.31y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.005657197401694539
+### Gaussian Input for Third Order System (65)
+Third order identified system: y[k] = -0.34y[k-1] + -0.34y[k-2] + -0.22y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.10e[k-1]
+Residue mean of third order system: -0.04054964546675057
+### Gaussian Input for Third Order System (66)
+Third order identified system: y[k] = -0.39y[k-1] + -0.29y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 0.88e[k-1]
+Residue mean of third order system: 0.03940116540130672
+### Gaussian Input for Third Order System (67)
+Third order identified system: y[k] = -0.29y[k-1] + -0.37y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.98e[k-1]
+Residue mean of third order system: 0.058909380388575204
+### Gaussian Input for Third Order System (68)
+Third order identified system: y[k] = -0.30y[k-1] + -0.35y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.040406452476979646
+### Gaussian Input for Third Order System (69)
+Third order identified system: y[k] = -0.29y[k-1] + -0.28y[k-2] + -0.28y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.96e[k-1]
+Residue mean of third order system: 0.0145067676062434
+### Gaussian Input for Third Order System (70)
+Third order identified system: y[k] = -0.38y[k-1] + -0.26y[k-2] + -0.22y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.0019126318862521339
+### Gaussian Input for Third Order System (71)
+Third order identified system: y[k] = -0.28y[k-1] + -0.34y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.89e[k-1]
+Residue mean of third order system: -0.01023037872546667
+### Gaussian Input for Third Order System (72)
+Third order identified system: y[k] = -0.34y[k-1] + -0.30y[k-2] + -0.25y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 1.11e[k-1]
+Residue mean of third order system: 0.016243988180186717
+### Gaussian Input for Third Order System (73)
+Third order identified system: y[k] = -0.34y[k-1] + -0.28y[k-2] + -0.23y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.024582323036928724
+### Gaussian Input for Third Order System (74)
+Third order identified system: y[k] = -0.31y[k-1] + -0.34y[k-2] + -0.19y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.002906836401651736
+### Gaussian Input for Third Order System (75)
+Third order identified system: y[k] = -0.26y[k-1] + -0.34y[k-2] + -0.26y[k-3] + 0.04u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.96e[k-1]
+Residue mean of third order system: 0.012323800465741712
+### Gaussian Input for Third Order System (76)
+Third order identified system: y[k] = -0.36y[k-1] + -0.33y[k-2] + -0.22y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.031125885171686955
+### Gaussian Input for Third Order System (77)
+Third order identified system: y[k] = -0.29y[k-1] + -0.33y[k-2] + -0.24y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.98e[k-1]
+Residue mean of third order system: -0.05311437142641455
+### Gaussian Input for Third Order System (78)
+Third order identified system: y[k] = -0.37y[k-1] + -0.33y[k-2] + -0.20y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.010307002861858013
+### Gaussian Input for Third Order System (79)
+Third order identified system: y[k] = -0.31y[k-1] + -0.28y[k-2] + -0.24y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.00e[k-1]
+Residue mean of third order system: 0.05837704266062277
+### Gaussian Input for Third Order System (80)
+Third order identified system: y[k] = -0.36y[k-1] + -0.33y[k-2] + -0.27y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.07e[k-1]
+Residue mean of third order system: 0.0391327324736047
+### Gaussian Input for Third Order System (81)
+Third order identified system: y[k] = -0.26y[k-1] + -0.28y[k-2] + -0.15y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.91e[k-1]
+Residue mean of third order system: 0.014275033670457621
+### Gaussian Input for Third Order System (82)
+Third order identified system: y[k] = -0.33y[k-1] + -0.25y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.95e[k-1]
+Residue mean of third order system: 0.031775263122341565
+### Gaussian Input for Third Order System (83)
+Third order identified system: y[k] = -0.30y[k-1] + -0.28y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.050657248494522376
+### Gaussian Input for Third Order System (84)
+Third order identified system: y[k] = -0.35y[k-1] + -0.27y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.017312976375753866
+### Gaussian Input for Third Order System (85)
+Third order identified system: y[k] = -0.33y[k-1] + -0.31y[k-2] + -0.19y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.019984597213926755
+### Gaussian Input for Third Order System (86)
+Third order identified system: y[k] = -0.37y[k-1] + -0.31y[k-2] + -0.21y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.0040446891830821785
+### Gaussian Input for Third Order System (87)
+Third order identified system: y[k] = -0.34y[k-1] + -0.32y[k-2] + -0.25y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.0029154758681794305
+### Gaussian Input for Third Order System (88)
+Third order identified system: y[k] = -0.33y[k-1] + -0.30y[k-2] + -0.26y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.94e[k-1]
+Residue mean of third order system: -0.0065125699423667785
+### Gaussian Input for Third Order System (89)
+Third order identified system: y[k] = -0.28y[k-1] + -0.36y[k-2] + -0.24y[k-3] + 0.02u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.90e[k-1]
+Residue mean of third order system: 0.04767473132062852
+### Gaussian Input for Third Order System (90)
+Third order identified system: y[k] = -0.30y[k-1] + -0.21y[k-2] + -0.15y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.02u[k-3] + 0.90e[k-1]
+Residue mean of third order system: -0.012118660890670922
+### Gaussian Input for Third Order System (91)
+Third order identified system: y[k] = -0.32y[k-1] + -0.34y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 1.06e[k-1]
+Residue mean of third order system: 0.051175368205847026
+### Gaussian Input for Third Order System (92)
+Third order identified system: y[k] = -0.33y[k-1] + -0.34y[k-2] + -0.24y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.09e[k-1]
+Residue mean of third order system: 0.01315328290187347
+### Gaussian Input for Third Order System (93)
+Third order identified system: y[k] = -0.39y[k-1] + -0.31y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.04u[k-3] + 1.08e[k-1]
+Residue mean of third order system: -0.007340859027807779
+### Gaussian Input for Third Order System (94)
+Third order identified system: y[k] = -0.42y[k-1] + -0.25y[k-2] + -0.22y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.97e[k-1]
+Residue mean of third order system: 0.017234635965626202
+### Gaussian Input for Third Order System (95)
+Third order identified system: y[k] = -0.38y[k-1] + -0.32y[k-2] + -0.26y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 1.03e[k-1]
+Residue mean of third order system: 0.005962922814342084
+### Gaussian Input for Third Order System (96)
+Third order identified system: y[k] = -0.28y[k-1] + -0.26y[k-2] + -0.27y[k-3] + 0.02u[k-1] + 0.04u[k-2] + 0.02u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.007914346816061221
+### Gaussian Input for Third Order System (97)
+Third order identified system: y[k] = -0.34y[k-1] + -0.30y[k-2] + -0.25y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.033853392118553205
+### Gaussian Input for Third Order System (98)
+Third order identified system: y[k] = -0.34y[k-1] + -0.30y[k-2] + -0.23y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.006364963717369256
+### Gaussian Input for Third Order System (99)
+Third order identified system: y[k] = -0.29y[k-1] + -0.30y[k-2] + -0.29y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.02u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.022498772925816674
+### Gaussian Input for Third Order System (100)
+Third order identified system: y[k] = -0.35y[k-1] + -0.37y[k-2] + -0.21y[k-3] + 0.03u[k-1] + 0.05u[k-2] + 0.03u[k-3] + 0.93e[k-1]
+Residue mean of third order system: 0.012898570968024811
+### Question 3 (Step(1)):
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Simulating with zero noise...
+1st Order identified system: y[k] = -0.93y[k-1] + 0.07u[k-1]
+Residue mean of 1st order system: -0.004373731229676262
+2nd Order identified system: y[k] = -1.65y[k-1] + 0.68y[k-2] + 0.03u[k-1] + 0.00u[k-2]
+Residue mean of 2nd order system: -0.0007071936449631089
+3rd Order identified system: y[k] = -1.78y[k-1] + 0.77y[k-2] + 0.02y[k-3] + 0.03u[k-1] + 0.01u[k-2] + -0.02u[k-3]
+Residue mean of 3rd order system: 0.0004094044042413364
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+Residue mean of 4th order system: -0.000011574907834324203
+5th Order identified system: y[k] = -1.76y[k-1] + 0.02y[k-2] + 1.54y[k-3] + -0.64y[k-4] + -0.00y[k-5] + 0.03u[k-1] + 0.01u[k-2] + -0.04u[k-3] + -0.01u[k-4] + 0.02u[k-5]
+Residue mean of 5th order system: -2197.6238363487514
+### Simulating Identified System without Gaussian noise...
+1st Order identified system: y[k] = -0.93y[k-1] + 0.07u[k-1]
+SSE: 0.23259519319572383
+R²: 0.9546156314682505
+SNR: 26.333992646296828 dB
+2nd Order identified system: y[k] = -1.65y[k-1] + 0.68y[k-2] + 0.03u[k-1] + 0.00u[k-2]
+SSE: 0.01620205189359842
+R²: 0.9968386281590487
+SNR: 37.90429981158792 dB
+3rd Order identified system: y[k] = -1.78y[k-1] + 0.77y[k-2] + 0.02y[k-3] + 0.03u[k-1] + 0.01u[k-2] + -0.02u[k-3]
+SSE: 0.0013193736036572307
+R²: 0.9997425615850579
+SNR: 48.7963220897823 dB
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+SSE: 0.000000017388465781192063
+R²: 0.9999999966071331
+SNR: 97.59738734970034 dB
+5th Order identified system: y[k] = -1.76y[k-1] + 0.02y[k-2] + 1.54y[k-3] + -0.64y[k-4] + -0.00y[k-5] + 0.03u[k-1] + 0.01u[k-2] + -0.04u[k-3] + -0.01u[k-4] + 0.02u[k-5]
+SSE: 16492811219.714876
+R²: -3218105292.7334538
+SNR: -82.17294687976354 dB
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+### Simulating with Gaussian noise...
+1st Order identified system: y[k] = -1.00y[k-1] + 0.01u[k-1] + 1.22e[k-1]
+Residue mean of 1st order system: 0.7408847288930871
+2nd Order identified system: y[k] = -2.00y[k-1] + 1.01y[k-2] + 0.02u[k-1] + -0.02u[k-2] + 0.90e[k-1]
+Residue mean of 2nd order system: 0.5822939778434002
+3rd Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.01u[k-3] + 1.00e[k-1]
+Residue mean of 3rd order system: 0.01608014729216696
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + -0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+Residue mean of 4th order system: 0.000000000058109732338496033
+5th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + -0.00y[k-4] + 0.00y[k-5] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + -0.00u[k-5] + 1.00e[k-1]
+Residue mean of 5th order system: 0.00000000018178715550237757
+### Simulating Identified System with Gaussian noise...
+1st Order identified system: y[k] = -1.00y[k-1] + 0.01u[k-1] + 1.22e[k-1]
+SSE: 699.1326351679884
+R²: -0.03989173394465295
+SNR: -8.445595752552666 dB
+2nd Order identified system: y[k] = -2.00y[k-1] + 1.01y[k-2] + 0.02u[k-1] + -0.02u[k-2] + 0.90e[k-1]
+SSE: 940.3663900463802
+R²: -0.39870346011474367
+SNR: -9.732970984641284 dB
+3rd Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.01u[k-3] + 1.00e[k-1]
+SSE: 2.8236107297789665
+R²: 0.995800153919193
+SNR: 15.491951764452363 dB
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + -0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+SSE: 0.00000000000000034027679388709507
+R²: 1
+SNR: 174.68167667802317 dB
+5th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + -0.00y[k-4] + 0.00y[k-5] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + -0.00u[k-5] + 1.00e[k-1]
+SSE: 0.0000000000000012075045183450779
+R²: 1
+SNR: 169.1811123549267 dB
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Simulating with Gaussian noise at sensor...
+1st Order identified system: y[k] = -0.88y[k-1] + 0.12u[k-1] + 0.94e[k-1]
+Residue mean of 1st order system: 0.0020038685848677916
+2nd Order identified system: y[k] = -0.42y[k-1] + -0.43y[k-2] + 0.02u[k-1] + 0.12u[k-2] + 0.97e[k-1]
+Residue mean of 2nd order system: -0.0006175223768014559
+3rd Order identified system: y[k] = -0.28y[k-1] + -0.24y[k-2] + -0.29y[k-3] + 0.02u[k-1] + 0.09u[k-2] + 0.07u[k-3] + 0.94e[k-1]
+Residue mean of 3rd order system: -0.0027266085486902713
+4th Order identified system: y[k] = -0.21y[k-1] + -0.18y[k-2] + -0.22y[k-3] + -0.17y[k-4] + 0.02u[k-1] + 0.08u[k-2] + 0.03u[k-3] + 0.09u[k-4] + 0.97e[k-1]
+Residue mean of 4th order system: -0.002819952576154906
+5th Order identified system: y[k] = -0.18y[k-1] + -0.14y[k-2] + -0.15y[k-3] + -0.14y[k-4] + -0.14y[k-5] + 0.03u[k-1] + 0.07u[k-2] + 0.03u[k-3] + 0.04u[k-4] + 0.09u[k-5] + 1.02e[k-1]
+Residue mean of 5th order system: -0.0026157940452404015
+### Simulating Identified System with Gaussian noise at sensor...
+1st Order identified system: y[k] = -0.88y[k-1] + 0.12u[k-1] + 0.94e[k-1]
+SSE: 0.7716980313838834
+R²: 0.86280007346478
+SNR: 21.12552607641982 dB
+2nd Order identified system: y[k] = -0.42y[k-1] + -0.43y[k-2] + 0.02u[k-1] + 0.12u[k-2] + 0.97e[k-1]
+SSE: 0.3048833497296361
+R²: 0.9457948945266786
+SNR: 25.15866292650003 dB
+3rd Order identified system: y[k] = -0.28y[k-1] + -0.24y[k-2] + -0.29y[k-3] + 0.02u[k-1] + 0.09u[k-2] + 0.07u[k-3] + 0.94e[k-1]
+SSE: 0.17259628140762895
+R²: 0.9693141667254053
+SNR: 27.629685654084355 dB
+4th Order identified system: y[k] = -0.21y[k-1] + -0.18y[k-2] + -0.22y[k-3] + -0.17y[k-4] + 0.02u[k-1] + 0.08u[k-2] + 0.03u[k-3] + 0.09u[k-4] + 0.97e[k-1]
+SSE: 0.12372536549058841
+R²: 0.9780029099913465
+SNR: 29.075412545884465 dB
+5th Order identified system: y[k] = -0.18y[k-1] + -0.14y[k-2] + -0.15y[k-3] + -0.14y[k-4] + -0.14y[k-5] + 0.03u[k-1] + 0.07u[k-2] + 0.03u[k-3] + 0.04u[k-4] + 0.09u[k-5] + 1.02e[k-1]
+SSE: 0.09396585933612465
+R²: 0.9832938423146995
+SNR: 30.270299101787344 dB
+### Question 3 (RandomSignal(-1, 1)):
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Simulating with zero noise...
+1st Order identified system: y[k] = -1.00y[k-1] + 0.03u[k-1]
+Residue mean of 1st order system: 0.008452257217216269
+2nd Order identified system: y[k] = -1.17y[k-1] + 0.19y[k-2] + 0.03u[k-1] + 0.02u[k-2]
+Residue mean of 2nd order system: -0.0025396774718355803
+3rd Order identified system: y[k] = -1.83y[k-1] + 0.84y[k-2] + 0.00y[k-3] + 0.03u[k-1] + 0.01u[k-2] + -0.02u[k-3]
+Residue mean of 3rd order system: 0.0002104301326995921
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+Residue mean of 4th order system: 0.0000000087509618542465
+5th Order identified system: y[k] = -1.47y[k-1] + -0.65y[k-2] + 2.34y[k-3] + -0.91y[k-4] + 0.00y[k-5] + 0.03u[k-1] + 0.02u[k-2] + -0.04u[k-3] + -0.01u[k-4] + 0.02u[k-5]
+Residue mean of 5th order system: 21658.835520600664
+### Simulating Identified System without Gaussian noise...
+1st Order identified system: y[k] = -1.00y[k-1] + 0.03u[k-1]
+SSE: 0.12532739300367182
+R²: 0.7244550364236902
+SNR: 29.019539942084826 dB
+2nd Order identified system: y[k] = -1.17y[k-1] + 0.19y[k-2] + 0.03u[k-1] + 0.02u[k-2]
+SSE: 0.02073377748828284
+R²: 0.9544146907879842
+SNR: 36.83321566557255 dB
+3rd Order identified system: y[k] = -1.83y[k-1] + 0.84y[k-2] + 0.00y[k-3] + 0.03u[k-1] + 0.01u[k-2] + -0.02u[k-3]
+SSE: 0.00008552896444662301
+R²: 0.9998119559114066
+SNR: 60.67886786217574 dB
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+SSE: 0.00000000000004713256020633064
+R²: 0.9999999999998964
+SNR: 153.2667896903979 dB
+5th Order identified system: y[k] = -1.47y[k-1] + -0.65y[k-2] + 2.34y[k-3] + -0.91y[k-4] + 0.00y[k-5] + 0.03u[k-1] + 0.02u[k-2] + -0.04u[k-3] + -0.01u[k-4] + 0.02u[k-5]
+SSE: 6349128464521.597
+R²: -13959201811901.84
+SNR: -108.02714114421717 dB
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+### Simulating with Gaussian noise...
+1st Order identified system: y[k] = -1.00y[k-1] + 0.03u[k-1] + 0.41e[k-1]
+Residue mean of 1st order system: -1.517455463243618
+2nd Order identified system: y[k] = -2.00y[k-1] + 1.01y[k-2] + 0.02u[k-1] + -0.02u[k-2] + 0.98e[k-1]
+Residue mean of 2nd order system: -0.7370706901390102
+3rd Order identified system: y[k] = -2.67y[k-1] + 2.39y[k-2] + -0.71y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.02u[k-3] + 1.02e[k-1]
+Residue mean of 3rd order system: -0.8940591763513609
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+Residue mean of 4th order system: -0.000000005023184264235647
+5th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + -0.00y[k-5] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + -0.00u[k-5] + 1.00e[k-1]
+Residue mean of 5th order system: 0.000000006334419520095946
+### Simulating Identified System with Gaussian noise...
+1st Order identified system: y[k] = -1.00y[k-1] + 0.03u[k-1] + 0.41e[k-1]
+SSE: 1697.207973888983
+R²: -0.07786939294829387
+SNR: -12.297350635187176 dB
+2nd Order identified system: y[k] = -2.00y[k-1] + 1.01y[k-2] + 0.02u[k-1] + -0.02u[k-2] + 0.98e[k-1]
+SSE: 577.6898411288496
+R²: 0.6331185052453214
+SNR: -7.616947303932813 dB
+3rd Order identified system: y[k] = -2.67y[k-1] + 2.39y[k-2] + -0.71y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.02u[k-3] + 1.02e[k-1]
+SSE: 133.66754341885243
+R²: 0.9151099004374625
+SNR: -1.260259665343416 dB
+4th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + 1.00e[k-1]
+SSE: 0.00000000000010409647278755095
+R²: 0.9999999999999999
+SNR: 149.82563985905944 dB
+5th Order identified system: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.00y[k-4] + -0.00y[k-5] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4] + -0.00u[k-5] + 1.00e[k-1]
+SSE: 0.0000000000001281955022751035
+R²: 0.9999999999999999
+SNR: 148.9212721172336 dB
+- Difference Equation: y[k] = -2.71y[k-1] + 2.45y[k-2] + -0.74y[k-3] + 0.03u[k-1] + -0.02u[k-2] + -0.03u[k-3] + 0.02u[k-4]
+### Simulating with Gaussian noise at sensor...
+1st Order identified system: y[k] = -0.82y[k-1] + 0.02u[k-1] + 0.90e[k-1]
+Residue mean of 1st order system: -0.00044027372789626874
+2nd Order identified system: y[k] = -0.48y[k-1] + -0.43y[k-2] + 0.02u[k-1] + 0.03u[k-2] + 0.97e[k-1]
+Residue mean of 2nd order system: 0.014648828474877394
+3rd Order identified system: y[k] = -0.34y[k-1] + -0.29y[k-2] + -0.31y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.02u[k-3] + 0.98e[k-1]
+Residue mean of 3rd order system: 0.02396715478981566
+4th Order identified system: y[k] = -0.25y[k-1] + -0.23y[k-2] + -0.25y[k-3] + -0.22y[k-4] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.02u[k-4] + 0.98e[k-1]
+Residue mean of 4th order system: 0.024135162298835378
+5th Order identified system: y[k] = -0.20y[k-1] + -0.18y[k-2] + -0.19y[k-3] + -0.19y[k-4] + -0.17y[k-5] + 0.02u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 0.03u[k-4] + 0.02u[k-5] + 0.96e[k-1]
+Residue mean of 5th order system: 0.018637049123265994
+### Simulating Identified System with Gaussian noise at sensor...
+1st Order identified system: y[k] = -0.82y[k-1] + 0.02u[k-1] + 0.90e[k-1]
+SSE: 0.9006027656963672
+R²: -0.08196897731838759
+SNR: 20.454667236790748 dB
+2nd Order identified system: y[k] = -0.48y[k-1] + -0.43y[k-2] + 0.02u[k-1] + 0.03u[k-2] + 0.97e[k-1]
+SSE: 0.45494522561390927
+R²: 0.45343647694357725
+SNR: 23.420408882782617 dB
+3rd Order identified system: y[k] = -0.34y[k-1] + -0.29y[k-2] + -0.31y[k-3] + 0.03u[k-1] + 0.04u[k-2] + 0.02u[k-3] + 0.98e[k-1]
+SSE: 0.27459205746237536
+R²: 0.6701097321607785
+SNR: 25.61312028825953 dB
+4th Order identified system: y[k] = -0.25y[k-1] + -0.23y[k-2] + -0.25y[k-3] + -0.22y[k-4] + 0.03u[k-1] + 0.04u[k-2] + 0.03u[k-3] + 0.02u[k-4] + 0.98e[k-1]
+SSE: 0.2054143075818009
+R²: 0.7532187144362193
+SNR: 26.873693100696997 dB
+5th Order identified system: y[k] = -0.20y[k-1] + -0.18y[k-2] + -0.19y[k-3] + -0.19y[k-4] + -0.17y[k-5] + 0.02u[k-1] + 0.05u[k-2] + 0.04u[k-3] + 0.03u[k-4] + 0.02u[k-5] + 0.96e[k-1]
+SSE: 0.14458112233833467
+R²: 0.8263026774573632
+SNR: 28.398884082828264 dB
+## Analyzing the second system:
+### Question 1:
+- Roots of the characteristic polynomial:
+r1: -0.5+1.5i
+r2: -0.5-1.5i
+- The system is stable.
+- The system is underdamped.
+- Damping ratios:
+ζ1: 0.31622776601683794
+ζ2: 0.31622776601683794
+- Natural frequencies:
+ωn1: 1.5811388300841898
+ωn2: 1.5811388300841898
+
+- Discrete Transfer Function: H(z) =
+5.92e-3z^2 + 1.18e-2z^1 + 5.92e-3
+------------------------------------
+1.00e0z^2 + -1.88e0z^1 + 9.05e-1
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Question 2 (Step(1)):
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Simulating with zero noise...
+1st Order identified system: y[k] = -0.93y[k-1] + 0.07u[k-1]
+Residue mean of 1st order system: -0.013720603829534798
+2nd Order identified system: y[k] = -1.89y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.02u[k-2]
+Residue mean of 2nd order system: -0.000030039719747443904
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+Residue mean of 3rd order system: 0.000000035231506382649505
+4th Order identified system: y[k] = -0.63y[k-1] + -0.75y[k-2] + 1.34y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.01u[k-4]
+Residue mean of 4th order system: -9.192125713476823
+5th Order identified system: y[k] = -0.09y[k-1] + -2.70y[k-2] + 1.76y[k-3] + 0.07y[k-4] + -0.00y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.01u[k-4] + 0.00u[k-5]
+Residue mean of 5th order system: -1331408427072354800000
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+### Simulating with Gaussian noise...
+1st Order identified system: y[k] = -0.99y[k-1] + 0.02u[k-1] + 0.95e[k-1]
+Residue mean of 1st order system: -0.34097400057208466
+2nd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.02u[k-2] + 1.00e[k-1]
+Residue mean of 2nd order system: -0.000015374047792506286
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+Residue mean of 3rd order system: 0.000000000015946082093654113
+4th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + -0.00u[k-4] + 1.00e[k-1]
+Residue mean of 4th order system: 0.000000000014842265680381496
+5th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.00y[k-5] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + -0.00u[k-4] + 0.00u[k-5] + 1.00e[k-1]
+Residue mean of 5th order system: 0.00000000003819977455882251
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Simulating with Gaussian noise at the end...
+1st Order identified system: y[k] = -0.92y[k-1] + 0.08u[k-1] + 1.16e[k-1]
+Residue mean of 1st order system: -0.0074758785670238715
+2nd Order identified system: y[k] = -0.68y[k-1] + -0.22y[k-2] + 0.01u[k-1] + 0.10u[k-2] + 1.13e[k-1]
+Residue mean of 2nd order system: -0.009092863988887983
+3rd Order identified system: y[k] = -0.70y[k-1] + -0.34y[k-2] + 0.14y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.08u[k-3] + 1.12e[k-1]
+Residue mean of 3rd order system: -0.006088489849948094
+4th Order identified system: y[k] = -0.63y[k-1] + -0.44y[k-2] + -0.06y[k-3] + 0.24y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.01u[k-3] + 0.07u[k-4] + 1.05e[k-1]
+Residue mean of 4th order system: -0.002803109136465722
+5th Order identified system: y[k] = -0.53y[k-1] + -0.45y[k-2] + -0.20y[k-3] + 0.07y[k-4] + 0.23y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.05u[k-4] + 0.03u[k-5] + 1.02e[k-1]
+Residue mean of 5th order system: -0.00003174419833819053
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Gaussian Input for Third Order System (0)
+Third order identified system: y[k] = -0.69y[k-1] + -0.37y[k-2] + 0.17y[k-3] + -0.01u[k-1] + 0.09u[k-2] + 0.04u[k-3] + 0.82e[k-1]
+Residue mean of third order system: -0.006800426109764826
+### Gaussian Input for Third Order System (1)
+Third order identified system: y[k] = -0.63y[k-1] + -0.25y[k-2] + 0.01y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.11u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.00519044651020538
+### Gaussian Input for Third Order System (2)
+Third order identified system: y[k] = -0.62y[k-1] + -0.31y[k-2] + 0.08y[k-3] + 0.01u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.00017974387396614279
+### Gaussian Input for Third Order System (3)
+Third order identified system: y[k] = -0.64y[k-1] + -0.33y[k-2] + 0.10y[k-3] + 0.00u[k-1] + 0.09u[k-2] + 0.04u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.001531203697595821
+### Gaussian Input for Third Order System (4)
+Third order identified system: y[k] = -0.70y[k-1] + -0.29y[k-2] + 0.09y[k-3] + 0.01u[k-1] + -0.03u[k-2] + 0.11u[k-3] + 0.87e[k-1]
+Residue mean of third order system: -0.0026782719049579374
+### Gaussian Input for Third Order System (5)
+Third order identified system: y[k] = -0.64y[k-1] + -0.29y[k-2] + 0.03y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.09u[k-3] + 0.97e[k-1]
+Residue mean of third order system: -0.016478306950998087
+### Gaussian Input for Third Order System (6)
+Third order identified system: y[k] = -0.66y[k-1] + -0.25y[k-2] + 0.03y[k-3] + 0.00u[k-1] + 0.07u[k-2] + 0.06u[k-3] + 0.90e[k-1]
+Residue mean of third order system: -0.014510279944377376
+### Gaussian Input for Third Order System (7)
+Third order identified system: y[k] = -0.68y[k-1] + -0.25y[k-2] + 0.07y[k-3] + -0.00u[k-1] + -0.03u[k-2] + 0.18u[k-3] + 1.08e[k-1]
+Residue mean of third order system: -0.0009140793342930154
+### Gaussian Input for Third Order System (8)
+Third order identified system: y[k] = -0.57y[k-1] + -0.29y[k-2] + -0.02y[k-3] + 0.01u[k-1] + 0.04u[k-2] + 0.09u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.008167259700590887
+### Gaussian Input for Third Order System (9)
+Third order identified system: y[k] = -0.70y[k-1] + -0.30y[k-2] + 0.12y[k-3] + 0.00u[k-1] + 0.04u[k-2] + 0.09u[k-3] + 0.85e[k-1]
+Residue mean of third order system: -0.005172702870055292
+### Gaussian Input for Third Order System (10)
+Third order identified system: y[k] = -0.66y[k-1] + -0.29y[k-2] + 0.08y[k-3] + 0.00u[k-1] + -0.00u[k-2] + 0.13u[k-3] + 1.11e[k-1]
+Residue mean of third order system: -0.01232512214889583
+### Gaussian Input for Third Order System (11)
+Third order identified system: y[k] = -0.65y[k-1] + -0.34y[k-2] + 0.11y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.11u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.010442091905632498
+### Gaussian Input for Third Order System (12)
+Third order identified system: y[k] = -0.71y[k-1] + -0.35y[k-2] + 0.18y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.09u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.004039708773093793
+### Gaussian Input for Third Order System (13)
+Third order identified system: y[k] = -0.74y[k-1] + -0.30y[k-2] + 0.17y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.11u[k-3] + 0.94e[k-1]
+Residue mean of third order system: -0.003729942797483199
+### Gaussian Input for Third Order System (14)
+Third order identified system: y[k] = -0.63y[k-1] + -0.30y[k-2] + 0.08y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.12u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.004914593984545322
+### Gaussian Input for Third Order System (15)
+Third order identified system: y[k] = -0.63y[k-1] + -0.34y[k-2] + 0.08y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.11u[k-3] + 1.07e[k-1]
+Residue mean of third order system: -0.007892489829494406
+### Gaussian Input for Third Order System (16)
+Third order identified system: y[k] = -0.61y[k-1] + -0.31y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.09u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.004933398716283491
+### Gaussian Input for Third Order System (17)
+Third order identified system: y[k] = -0.63y[k-1] + -0.34y[k-2] + 0.08y[k-3] + 0.01u[k-1] + 0.00u[k-2] + 0.11u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.01411853936754858
+### Gaussian Input for Third Order System (18)
+Third order identified system: y[k] = -0.66y[k-1] + -0.27y[k-2] + 0.05y[k-3] + 0.00u[k-1] + 0.05u[k-2] + 0.07u[k-3] + 0.89e[k-1]
+Residue mean of third order system: -0.004873162415943922
+### Gaussian Input for Third Order System (19)
+Third order identified system: y[k] = -0.62y[k-1] + -0.32y[k-2] + 0.07y[k-3] + 0.01u[k-1] + 0.00u[k-2] + 0.14u[k-3] + 1.22e[k-1]
+Residue mean of third order system: -0.0030885748353174014
+### Gaussian Input for Third Order System (20)
+Third order identified system: y[k] = -0.62y[k-1] + -0.32y[k-2] + 0.06y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.09u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.0033384072753665085
+### Gaussian Input for Third Order System (21)
+Third order identified system: y[k] = -0.61y[k-1] + -0.34y[k-2] + 0.07y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.11u[k-3] + 0.94e[k-1]
+Residue mean of third order system: 0.0014179633977661043
+### Gaussian Input for Third Order System (22)
+Third order identified system: y[k] = -0.71y[k-1] + -0.26y[k-2] + 0.10y[k-3] + 0.01u[k-1] + -0.04u[k-2] + 0.18u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.00864535881329777
+### Gaussian Input for Third Order System (23)
+Third order identified system: y[k] = -0.62y[k-1] + -0.28y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.11u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.005834815068235143
+### Gaussian Input for Third Order System (24)
+Third order identified system: y[k] = -0.69y[k-1] + -0.27y[k-2] + 0.09y[k-3] + 0.01u[k-1] + -0.02u[k-2] + 0.14u[k-3] + 0.93e[k-1]
+Residue mean of third order system: -0.0015968023446480616
+### Gaussian Input for Third Order System (25)
+Third order identified system: y[k] = -0.62y[k-1] + -0.30y[k-2] + 0.06y[k-3] + 0.00u[k-1] + 0.03u[k-2] + 0.10u[k-3] + 0.91e[k-1]
+Residue mean of third order system: -0.005474456514261592
+### Gaussian Input for Third Order System (26)
+Third order identified system: y[k] = -0.70y[k-1] + -0.28y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.09u[k-3] + 0.85e[k-1]
+Residue mean of third order system: -0.017457994361081676
+### Gaussian Input for Third Order System (27)
+Third order identified system: y[k] = -0.64y[k-1] + -0.32y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.009858320535260718
+### Gaussian Input for Third Order System (28)
+Third order identified system: y[k] = -0.66y[k-1] + -0.30y[k-2] + 0.06y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.07u[k-3] + 0.88e[k-1]
+Residue mean of third order system: -0.0013658388728229165
+### Gaussian Input for Third Order System (29)
+Third order identified system: y[k] = -0.65y[k-1] + -0.28y[k-2] + 0.08y[k-3] + 0.01u[k-1] + -0.00u[k-2] + 0.14u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.006460284644185425
+### Gaussian Input for Third Order System (30)
+Third order identified system: y[k] = -0.63y[k-1] + -0.33y[k-2] + 0.06y[k-3] + 0.01u[k-1] + 0.05u[k-2] + 0.05u[k-3] + 1.07e[k-1]
+Residue mean of third order system: -0.005597883082379205
+### Gaussian Input for Third Order System (31)
+Third order identified system: y[k] = -0.69y[k-1] + -0.29y[k-2] + 0.08y[k-3] + 0.00u[k-1] + -0.05u[k-2] + 0.15u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.0024521312524021575
+### Gaussian Input for Third Order System (32)
+Third order identified system: y[k] = -0.68y[k-1] + -0.28y[k-2] + 0.11y[k-3] + 0.01u[k-1] + -0.05u[k-2] + 0.19u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.007398914599408342
+### Gaussian Input for Third Order System (33)
+Third order identified system: y[k] = -0.69y[k-1] + -0.31y[k-2] + 0.13y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 0.94e[k-1]
+Residue mean of third order system: -0.0063406515127976005
+### Gaussian Input for Third Order System (34)
+Third order identified system: y[k] = -0.56y[k-1] + -0.32y[k-2] + 0.01y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.10u[k-3] + 1.17e[k-1]
+Residue mean of third order system: -0.0058884415143008505
+### Gaussian Input for Third Order System (35)
+Third order identified system: y[k] = -0.58y[k-1] + -0.29y[k-2] + -0.02y[k-3] + 0.01u[k-1] + 0.05u[k-2] + 0.06u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.0011316263580940988
+### Gaussian Input for Third Order System (36)
+Third order identified system: y[k] = -0.58y[k-1] + -0.32y[k-2] + -0.03y[k-3] + -0.00u[k-1] + -0.01u[k-2] + 0.10u[k-3] + 1.12e[k-1]
+Residue mean of third order system: -0.00879806800002862
+### Gaussian Input for Third Order System (37)
+Third order identified system: y[k] = -0.56y[k-1] + -0.28y[k-2] + -0.04y[k-3] + 0.00u[k-1] + 0.00u[k-2] + 0.12u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.00835201940608753
+### Gaussian Input for Third Order System (38)
+Third order identified system: y[k] = -0.73y[k-1] + -0.30y[k-2] + 0.15y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.09u[k-3] + 0.93e[k-1]
+Residue mean of third order system: -0.0069381907089677095
+### Gaussian Input for Third Order System (39)
+Third order identified system: y[k] = -0.73y[k-1] + -0.29y[k-2] + 0.14y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.12u[k-3] + 0.94e[k-1]
+Residue mean of third order system: -0.003155854885505819
+### Gaussian Input for Third Order System (40)
+Third order identified system: y[k] = -0.67y[k-1] + -0.31y[k-2] + 0.11y[k-3] + 0.01u[k-1] + 0.04u[k-2] + 0.10u[k-3] + 1.13e[k-1]
+Residue mean of third order system: -0.005648116642264737
+### Gaussian Input for Third Order System (41)
+Third order identified system: y[k] = -0.66y[k-1] + -0.34y[k-2] + 0.12y[k-3] + 0.01u[k-1] + 0.06u[k-2] + 0.06u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.0005085180413807189
+### Gaussian Input for Third Order System (42)
+Third order identified system: y[k] = -0.73y[k-1] + -0.34y[k-2] + 0.17y[k-3] + 0.01u[k-1] + 0.05u[k-2] + 0.05u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.0014315641977372616
+### Gaussian Input for Third Order System (43)
+Third order identified system: y[k] = -0.62y[k-1] + -0.30y[k-2] + 0.06y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 0.97e[k-1]
+Residue mean of third order system: -0.006778389624664208
+### Gaussian Input for Third Order System (44)
+Third order identified system: y[k] = -0.59y[k-1] + -0.32y[k-2] + 0.06y[k-3] + 0.02u[k-1] + 0.06u[k-2] + 0.06u[k-3] + 1.15e[k-1]
+Residue mean of third order system: 0.004026834432219257
+### Gaussian Input for Third Order System (45)
+Third order identified system: y[k] = -0.63y[k-1] + -0.30y[k-2] + 0.07y[k-3] + 0.00u[k-1] + -0.03u[k-2] + 0.18u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.0033205463887873397
+### Gaussian Input for Third Order System (46)
+Third order identified system: y[k] = -0.69y[k-1] + -0.28y[k-2] + 0.10y[k-3] + 0.01u[k-1] + -0.00u[k-2] + 0.13u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.0022018847787252816
+### Gaussian Input for Third Order System (47)
+Third order identified system: y[k] = -0.58y[k-1] + -0.33y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.07u[k-2] + 0.07u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.004901038315709225
+### Gaussian Input for Third Order System (48)
+Third order identified system: y[k] = -0.56y[k-1] + -0.27y[k-2] + -0.03y[k-3] + 0.00u[k-1] + -0.01u[k-2] + 0.15u[k-3] + 1.10e[k-1]
+Residue mean of third order system: 0.000023970401005950494
+### Gaussian Input for Third Order System (49)
+Third order identified system: y[k] = -0.64y[k-1] + -0.34y[k-2] + 0.11y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.09u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.0015206727660351494
+### Gaussian Input for Third Order System (50)
+Third order identified system: y[k] = -0.65y[k-1] + -0.31y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.10u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.0032618993951293164
+### Gaussian Input for Third Order System (51)
+Third order identified system: y[k] = -0.62y[k-1] + -0.31y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.10u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.004667692555470582
+### Gaussian Input for Third Order System (52)
+Third order identified system: y[k] = -0.61y[k-1] + -0.26y[k-2] + 0.01y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.010940154102009663
+### Gaussian Input for Third Order System (53)
+Third order identified system: y[k] = -0.64y[k-1] + -0.28y[k-2] + 0.05y[k-3] + 0.01u[k-1] + -0.02u[k-2] + 0.16u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.012614466908135797
+### Gaussian Input for Third Order System (54)
+Third order identified system: y[k] = -0.62y[k-1] + -0.32y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.04u[k-2] + 0.06u[k-3] + 1.13e[k-1]
+Residue mean of third order system: 0.0002628936064450793
+### Gaussian Input for Third Order System (55)
+Third order identified system: y[k] = -0.65y[k-1] + -0.31y[k-2] + 0.09y[k-3] + 0.00u[k-1] + 0.00u[k-2] + 0.13u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.002709235931958207
+### Gaussian Input for Third Order System (56)
+Third order identified system: y[k] = -0.59y[k-1] + -0.30y[k-2] + -0.01y[k-3] + 0.01u[k-1] + -0.01u[k-2] + 0.10u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.003099929575147836
+### Gaussian Input for Third Order System (57)
+Third order identified system: y[k] = -0.70y[k-1] + -0.32y[k-2] + 0.14y[k-3] + 0.00u[k-1] + -0.00u[k-2] + 0.13u[k-3] + 1.26e[k-1]
+Residue mean of third order system: -0.0061542351765165836
+### Gaussian Input for Third Order System (58)
+Third order identified system: y[k] = -0.63y[k-1] + -0.33y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.08u[k-3] + 1.14e[k-1]
+Residue mean of third order system: 0.00037791964679889325
+### Gaussian Input for Third Order System (59)
+Third order identified system: y[k] = -0.69y[k-1] + -0.24y[k-2] + 0.03y[k-3] + 0.01u[k-1] + -0.02u[k-2] + 0.13u[k-3] + 0.95e[k-1]
+Residue mean of third order system: 0.0006149788520327615
+### Gaussian Input for Third Order System (60)
+Third order identified system: y[k] = -0.60y[k-1] + -0.30y[k-2] + 0.01y[k-3] + 0.00u[k-1] + -0.03u[k-2] + 0.15u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.012370973535275609
+### Gaussian Input for Third Order System (61)
+Third order identified system: y[k] = -0.71y[k-1] + -0.29y[k-2] + 0.13y[k-3] + 0.00u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.004876216409029138
+### Gaussian Input for Third Order System (62)
+Third order identified system: y[k] = -0.59y[k-1] + -0.27y[k-2] + 0.02y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.13u[k-3] + 1.04e[k-1]
+Residue mean of third order system: -0.007177638382954253
+### Gaussian Input for Third Order System (63)
+Third order identified system: y[k] = -0.65y[k-1] + -0.32y[k-2] + 0.09y[k-3] + -0.00u[k-1] + -0.02u[k-2] + 0.14u[k-3] + 1.12e[k-1]
+Residue mean of third order system: -0.0048587336685731175
+### Gaussian Input for Third Order System (64)
+Third order identified system: y[k] = -0.68y[k-1] + -0.33y[k-2] + 0.12y[k-3] + 0.00u[k-1] + -0.02u[k-2] + 0.14u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.01859835092082872
+### Gaussian Input for Third Order System (65)
+Third order identified system: y[k] = -0.63y[k-1] + -0.32y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.05u[k-2] + 0.10u[k-3] + 1.03e[k-1]
+Residue mean of third order system: 0.005529860264380444
+### Gaussian Input for Third Order System (66)
+Third order identified system: y[k] = -0.60y[k-1] + -0.32y[k-2] + 0.04y[k-3] + 0.00u[k-1] + 0.06u[k-2] + 0.06u[k-3] + 0.97e[k-1]
+Residue mean of third order system: 0.0019208421135273512
+### Gaussian Input for Third Order System (67)
+Third order identified system: y[k] = -0.60y[k-1] + -0.31y[k-2] + 0.05y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 1.13e[k-1]
+Residue mean of third order system: -0.014540434876101183
+### Gaussian Input for Third Order System (68)
+Third order identified system: y[k] = -0.60y[k-1] + -0.32y[k-2] + 0.06y[k-3] + 0.02u[k-1] + 0.08u[k-2] + 0.05u[k-3] + 1.11e[k-1]
+Residue mean of third order system: 0.007653165466979701
+### Gaussian Input for Third Order System (69)
+Third order identified system: y[k] = -0.68y[k-1] + -0.28y[k-2] + 0.10y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.0008045136605677594
+### Gaussian Input for Third Order System (70)
+Third order identified system: y[k] = -0.58y[k-1] + -0.32y[k-2] + 0.03y[k-3] + 0.00u[k-1] + 0.04u[k-2] + 0.11u[k-3] + 1.25e[k-1]
+Residue mean of third order system: -0.0014706670561706026
+### Gaussian Input for Third Order System (71)
+Third order identified system: y[k] = -0.58y[k-1] + -0.32y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.10u[k-3] + 1.12e[k-1]
+Residue mean of third order system: -0.025776045242811012
+### Gaussian Input for Third Order System (72)
+Third order identified system: y[k] = -0.67y[k-1] + -0.34y[k-2] + 0.13y[k-3] + 0.01u[k-1] + 0.00u[k-2] + 0.12u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.002090048650285281
+### Gaussian Input for Third Order System (73)
+Third order identified system: y[k] = -0.69y[k-1] + -0.30y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.08u[k-3] + 0.98e[k-1]
+Residue mean of third order system: 0.004106882673593364
+### Gaussian Input for Third Order System (74)
+Third order identified system: y[k] = -0.65y[k-1] + -0.30y[k-2] + 0.09y[k-3] + -0.00u[k-1] + -0.02u[k-2] + 0.16u[k-3] + 1.10e[k-1]
+Residue mean of third order system: -0.003713895252691537
+### Gaussian Input for Third Order System (75)
+Third order identified system: y[k] = -0.67y[k-1] + -0.34y[k-2] + 0.12y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.10u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.007166969097287071
+### Gaussian Input for Third Order System (76)
+Third order identified system: y[k] = -0.64y[k-1] + -0.37y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.04u[k-2] + 0.05u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.01923344731774672
+### Gaussian Input for Third Order System (77)
+Third order identified system: y[k] = -0.64y[k-1] + -0.30y[k-2] + 0.08y[k-3] + 0.01u[k-1] + -0.01u[k-2] + 0.14u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.00018539461986369577
+### Gaussian Input for Third Order System (78)
+Third order identified system: y[k] = -0.62y[k-1] + -0.31y[k-2] + 0.06y[k-3] + 0.01u[k-1] + 0.05u[k-2] + 0.07u[k-3] + 1.13e[k-1]
+Residue mean of third order system: -0.003405967864969639
+### Gaussian Input for Third Order System (79)
+Third order identified system: y[k] = -0.63y[k-1] + -0.29y[k-2] + 0.07y[k-3] + 0.01u[k-1] + 0.05u[k-2] + 0.09u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.010201322168020562
+### Gaussian Input for Third Order System (80)
+Third order identified system: y[k] = -0.59y[k-1] + -0.29y[k-2] + 0.04y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.15u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.004342143336074958
+### Gaussian Input for Third Order System (81)
+Third order identified system: y[k] = -0.66y[k-1] + -0.30y[k-2] + 0.10y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 1.13e[k-1]
+Residue mean of third order system: 0.0013875010812804966
+### Gaussian Input for Third Order System (82)
+Third order identified system: y[k] = -0.63y[k-1] + -0.31y[k-2] + 0.06y[k-3] + 0.01u[k-1] + 0.00u[k-2] + 0.11u[k-3] + 0.95e[k-1]
+Residue mean of third order system: -0.003144275403553706
+### Gaussian Input for Third Order System (83)
+Third order identified system: y[k] = -0.64y[k-1] + -0.32y[k-2] + 0.06y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.08u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.008949191774344811
+### Gaussian Input for Third Order System (84)
+Third order identified system: y[k] = -0.69y[k-1] + -0.31y[k-2] + 0.11y[k-3] + 0.01u[k-1] + -0.01u[k-2] + 0.12u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.0020539858717380276
+### Gaussian Input for Third Order System (85)
+Third order identified system: y[k] = -0.66y[k-1] + -0.31y[k-2] + 0.09y[k-3] + 0.00u[k-1] + 0.00u[k-2] + 0.14u[k-3] + 1.12e[k-1]
+Residue mean of third order system: -0.007910854968637991
+### Gaussian Input for Third Order System (86)
+Third order identified system: y[k] = -0.65y[k-1] + -0.29y[k-2] + 0.02y[k-3] + 0.01u[k-1] + 0.04u[k-2] + 0.04u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.019787054776973893
+### Gaussian Input for Third Order System (87)
+Third order identified system: y[k] = -0.67y[k-1] + -0.33y[k-2] + 0.11y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.10u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.0036523267745835397
+### Gaussian Input for Third Order System (88)
+Third order identified system: y[k] = -0.67y[k-1] + -0.30y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.10u[k-3] + 0.76e[k-1]
+Residue mean of third order system: 0.0058007226292076455
+### Gaussian Input for Third Order System (89)
+Third order identified system: y[k] = -0.65y[k-1] + -0.28y[k-2] + 0.07y[k-3] + 0.01u[k-1] + -0.02u[k-2] + 0.15u[k-3] + 0.97e[k-1]
+Residue mean of third order system: -0.002786115599078265
+### Gaussian Input for Third Order System (90)
+Third order identified system: y[k] = -0.63y[k-1] + -0.27y[k-2] + 0.02y[k-3] + 0.01u[k-1] + 0.00u[k-2] + 0.12u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.0070334210631502235
+### Gaussian Input for Third Order System (91)
+Third order identified system: y[k] = -0.63y[k-1] + -0.28y[k-2] + 0.03y[k-3] + 0.01u[k-1] + -0.03u[k-2] + 0.15u[k-3] + 0.96e[k-1]
+Residue mean of third order system: -0.006280868012970707
+### Gaussian Input for Third Order System (92)
+Third order identified system: y[k] = -0.64y[k-1] + -0.23y[k-2] + 0.03y[k-3] + 0.00u[k-1] + -0.04u[k-2] + 0.19u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.0018876649578284121
+### Gaussian Input for Third Order System (93)
+Third order identified system: y[k] = -0.76y[k-1] + -0.35y[k-2] + 0.21y[k-3] + 0.01u[k-1] + 0.04u[k-2] + 0.06u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.0029006439317794132
+### Gaussian Input for Third Order System (94)
+Third order identified system: y[k] = -0.62y[k-1] + -0.23y[k-2] + -0.03y[k-3] + 0.00u[k-1] + -0.01u[k-2] + 0.13u[k-3] + 1.02e[k-1]
+Residue mean of third order system: -0.01318059303841394
+### Gaussian Input for Third Order System (95)
+Third order identified system: y[k] = -0.66y[k-1] + -0.31y[k-2] + 0.10y[k-3] + 0.00u[k-1] + -0.00u[k-2] + 0.15u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.0035377255369679374
+### Gaussian Input for Third Order System (96)
+Third order identified system: y[k] = -0.68y[k-1] + -0.34y[k-2] + 0.11y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.09u[k-3] + 1.07e[k-1]
+Residue mean of third order system: -0.011923958363936922
+### Gaussian Input for Third Order System (97)
+Third order identified system: y[k] = -0.67y[k-1] + -0.31y[k-2] + 0.12y[k-3] + 0.00u[k-1] + -0.01u[k-2] + 0.15u[k-3] + 1.08e[k-1]
+Residue mean of third order system: -0.009306789511810923
+### Gaussian Input for Third Order System (98)
+Third order identified system: y[k] = -0.64y[k-1] + -0.32y[k-2] + 0.11y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.13u[k-3] + 1.13e[k-1]
+Residue mean of third order system: -0.002689314749624664
+### Gaussian Input for Third Order System (99)
+Third order identified system: y[k] = -0.65y[k-1] + -0.32y[k-2] + 0.11y[k-3] + 0.02u[k-1] + 0.07u[k-2] + 0.06u[k-3] + 1.11e[k-1]
+Residue mean of third order system: 0.003966669827646775
+### Gaussian Input for Third Order System (100)
+Third order identified system: y[k] = -0.73y[k-1] + -0.33y[k-2] + 0.18y[k-3] + -0.00u[k-1] + -0.01u[k-2] + 0.13u[k-3] + 1.25e[k-1]
+Residue mean of third order system: 0.0014482828450527096
+### Question 2 (RandomSignal(-1, 1)):
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Simulating with zero noise...
+1st Order identified system: y[k] = -1.00y[k-1] + 0.01u[k-1]
+Residue mean of 1st order system: 0.04258716398813317
+2nd Order identified system: y[k] = -1.92y[k-1] + 0.95y[k-2] + 0.01u[k-1] + 0.01u[k-2]
+Residue mean of 2nd order system: 0.007153314267877286
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+Residue mean of 3rd order system: 0.0000000000003912113796973593
+4th Order identified system: y[k] = -1.28y[k-1] + -0.34y[k-2] + 0.54y[k-3] + 0.00y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.01u[k-3] + 0.00u[k-4]
+Residue mean of 4th order system: -2738.678986089144
+5th Order identified system: y[k] = -0.35y[k-1] + -0.61y[k-2] + -0.31y[k-3] + 0.75y[k-4] + 0.00y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.02u[k-4] + 0.00u[k-5]
+Residue mean of 5th order system: 0.03509979978234116
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+### Simulating with Gaussian noise...
+1st Order identified system: y[k] = -0.99y[k-1] + -0.01u[k-1] + 0.93e[k-1]
+Residue mean of 1st order system: 0.11045923333613311
+2nd Order identified system: y[k] = -1.88y[k-1] + 0.90y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 1.02e[k-1]
+Residue mean of 2nd order system: -0.006074136287691521
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + -0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+Residue mean of 3rd order system: -0.0000000000015972514283424388
+4th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + -0.00y[k-3] + 0.00y[k-4] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + -0.00u[k-4] + 1.00e[k-1]
+Residue mean of 4th order system: -0.0000000000010578244530323744
+5th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + -0.00y[k-3] + 0.00y[k-4] + -0.00y[k-5] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + -0.00u[k-4] + 0.00u[k-5] + 1.00e[k-1]
+Residue mean of 5th order system: -0.00000000000258629321084336
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Simulating with Gaussian noise at the end...
+1st Order identified system: y[k] = -0.98y[k-1] + 0.00u[k-1] + 1.11e[k-1]
+Residue mean of 1st order system: -0.17380694763583462
+2nd Order identified system: y[k] = -0.63y[k-1] + -0.38y[k-2] + 0.01u[k-1] + 0.02u[k-2] + 1.10e[k-1]
+Residue mean of 2nd order system: -0.14793970587862984
+3rd Order identified system: y[k] = -0.58y[k-1] + -0.37y[k-2] + -0.06y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 1.11e[k-1]
+Residue mean of 3rd order system: -0.05035499824098367
+4th Order identified system: y[k] = -0.55y[k-1] + -0.39y[k-2] + -0.16y[k-3] + 0.11y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.02u[k-4] + 1.10e[k-1]
+Residue mean of 4th order system: 0.01189451086972275
+5th Order identified system: y[k] = -0.49y[k-1] + -0.40y[k-2] + -0.22y[k-3] + -0.02y[k-4] + 0.17y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.03u[k-4] + 0.02u[k-5] + 1.09e[k-1]
+Residue mean of 5th order system: 0.034328906333831795
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Gaussian Input for Third Order System (0)
+Third order identified system: y[k] = -0.66y[k-1] + -0.32y[k-2] + 0.03y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.02u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.04623820082388453
+### Gaussian Input for Third Order System (1)
+Third order identified system: y[k] = -0.83y[k-1] + -0.34y[k-2] + 0.22y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.90e[k-1]
+Residue mean of third order system: 0.07275583751466817
+### Gaussian Input for Third Order System (2)
+Third order identified system: y[k] = -0.80y[k-1] + -0.30y[k-2] + 0.14y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.82e[k-1]
+Residue mean of third order system: -0.006783338089747646
+### Gaussian Input for Third Order System (3)
+Third order identified system: y[k] = -0.68y[k-1] + -0.40y[k-2] + 0.08y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.06968788274885307
+### Gaussian Input for Third Order System (4)
+Third order identified system: y[k] = -0.60y[k-1] + -0.33y[k-2] + 0.03y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 0.98e[k-1]
+Residue mean of third order system: -0.04821636341863177
+### Gaussian Input for Third Order System (5)
+Third order identified system: y[k] = -0.71y[k-1] + -0.26y[k-2] + -0.03y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.04u[k-3] + 0.88e[k-1]
+Residue mean of third order system: 0.04326290257736716
+### Gaussian Input for Third Order System (6)
+Third order identified system: y[k] = -0.66y[k-1] + -0.36y[k-2] + 0.07y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.02u[k-3] + 1.09e[k-1]
+Residue mean of third order system: 0.03682404208111838
+### Gaussian Input for Third Order System (7)
+Third order identified system: y[k] = -0.65y[k-1] + -0.36y[k-2] + 0.08y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.00e[k-1]
+Residue mean of third order system: 0.036859173555338784
+### Gaussian Input for Third Order System (8)
+Third order identified system: y[k] = -0.84y[k-1] + -0.31y[k-2] + 0.22y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.05u[k-3] + 1.22e[k-1]
+Residue mean of third order system: -0.05210634630084667
+### Gaussian Input for Third Order System (9)
+Third order identified system: y[k] = -0.52y[k-1] + -0.34y[k-2] + -0.13y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.16e[k-1]
+Residue mean of third order system: -0.025278101905012937
+### Gaussian Input for Third Order System (10)
+Third order identified system: y[k] = -0.67y[k-1] + -0.34y[k-2] + 0.04y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.13e[k-1]
+Residue mean of third order system: -0.04510657075220547
+### Gaussian Input for Third Order System (11)
+Third order identified system: y[k] = -0.72y[k-1] + -0.33y[k-2] + 0.12y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 0.83e[k-1]
+Residue mean of third order system: -0.04095123209161563
+### Gaussian Input for Third Order System (12)
+Third order identified system: y[k] = -0.92y[k-1] + -0.29y[k-2] + 0.25y[k-3] + 0.02u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.89e[k-1]
+Residue mean of third order system: -0.14508217388699152
+### Gaussian Input for Third Order System (13)
+Third order identified system: y[k] = -0.63y[k-1] + -0.31y[k-2] + -0.03y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.07e[k-1]
+Residue mean of third order system: 0.09928974357833058
+### Gaussian Input for Third Order System (14)
+Third order identified system: y[k] = -0.41y[k-1] + -0.30y[k-2] + -0.19y[k-3] + -0.00u[k-1] + 0.00u[k-2] + 0.02u[k-3] + 1.02e[k-1]
+Residue mean of third order system: 0.03443969544606438
+### Gaussian Input for Third Order System (15)
+Third order identified system: y[k] = -0.71y[k-1] + -0.34y[k-2] + 0.12y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.1083327982732557
+### Gaussian Input for Third Order System (16)
+Third order identified system: y[k] = -0.65y[k-1] + -0.34y[k-2] + 0.03y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.04u[k-3] + 1.12e[k-1]
+Residue mean of third order system: 0.16125417313120657
+### Gaussian Input for Third Order System (17)
+Third order identified system: y[k] = -0.51y[k-1] + -0.32y[k-2] + -0.04y[k-3] + -0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.86e[k-1]
+Residue mean of third order system: 0.05290372769700369
+### Gaussian Input for Third Order System (18)
+Third order identified system: y[k] = -0.80y[k-1] + -0.34y[k-2] + 0.20y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.11e[k-1]
+Residue mean of third order system: 0.04565836500885327
+### Gaussian Input for Third Order System (19)
+Third order identified system: y[k] = -0.71y[k-1] + -0.33y[k-2] + 0.11y[k-3] + -0.01u[k-1] + 0.01u[k-2] + 0.03u[k-3] + 1.17e[k-1]
+Residue mean of third order system: 0.005398656670394946
+### Gaussian Input for Third Order System (20)
+Third order identified system: y[k] = -0.48y[k-1] + -0.29y[k-2] + -0.10y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.008219136444121438
+### Gaussian Input for Third Order System (21)
+Third order identified system: y[k] = -0.70y[k-1] + -0.29y[k-2] + 0.07y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.04u[k-3] + 0.84e[k-1]
+Residue mean of third order system: -0.013239299508218656
+### Gaussian Input for Third Order System (22)
+Third order identified system: y[k] = -0.64y[k-1] + -0.36y[k-2] + 0.03y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.07742687910802439
+### Gaussian Input for Third Order System (23)
+Third order identified system: y[k] = -0.55y[k-1] + -0.33y[k-2] + -0.07y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.08e[k-1]
+Residue mean of third order system: 0.02899635093892881
+### Gaussian Input for Third Order System (24)
+Third order identified system: y[k] = -0.70y[k-1] + -0.31y[k-2] + 0.03y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.04u[k-3] + 0.88e[k-1]
+Residue mean of third order system: 0.07852047384169321
+### Gaussian Input for Third Order System (25)
+Third order identified system: y[k] = -0.62y[k-1] + -0.32y[k-2] + 0.05y[k-3] + -0.00u[k-1] + 0.03u[k-2] + 0.02u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.03860412617972476
+### Gaussian Input for Third Order System (26)
+Third order identified system: y[k] = -0.67y[k-1] + -0.25y[k-2] + -0.01y[k-3] + -0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.94e[k-1]
+Residue mean of third order system: 0.1468065981371334
+### Gaussian Input for Third Order System (27)
+Third order identified system: y[k] = -0.64y[k-1] + -0.32y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 0.74e[k-1]
+Residue mean of third order system: 0.019423583961887977
+### Gaussian Input for Third Order System (28)
+Third order identified system: y[k] = -0.60y[k-1] + -0.34y[k-2] + 0.07y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.90e[k-1]
+Residue mean of third order system: 0.03889238057353966
+### Gaussian Input for Third Order System (29)
+Third order identified system: y[k] = -0.55y[k-1] + -0.34y[k-2] + -0.08y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.07e[k-1]
+Residue mean of third order system: -0.012617143066560001
+### Gaussian Input for Third Order System (30)
+Third order identified system: y[k] = -0.70y[k-1] + -0.33y[k-2] + 0.11y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 0.89e[k-1]
+Residue mean of third order system: 0.012909831533450352
+### Gaussian Input for Third Order System (31)
+Third order identified system: y[k] = -0.63y[k-1] + -0.34y[k-2] + 0.01y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.13431194416392123
+### Gaussian Input for Third Order System (32)
+Third order identified system: y[k] = -0.77y[k-1] + -0.32y[k-2] + 0.14y[k-3] + -0.02u[k-1] + 0.02u[k-2] + 0.04u[k-3] + 0.88e[k-1]
+Residue mean of third order system: -0.05286640931728907
+### Gaussian Input for Third Order System (33)
+Third order identified system: y[k] = -0.69y[k-1] + -0.22y[k-2] + 0.01y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 0.77e[k-1]
+Residue mean of third order system: 0.005504123425903995
+### Gaussian Input for Third Order System (34)
+Third order identified system: y[k] = -0.51y[k-1] + -0.37y[k-2] + -0.07y[k-3] + 0.00u[k-1] + 0.00u[k-2] + 0.01u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.00026673256526433707
+### Gaussian Input for Third Order System (35)
+Third order identified system: y[k] = -0.73y[k-1] + -0.39y[k-2] + 0.16y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 0.86e[k-1]
+Residue mean of third order system: 0.08042766213759413
+### Gaussian Input for Third Order System (36)
+Third order identified system: y[k] = -0.46y[k-1] + -0.24y[k-2] + -0.12y[k-3] + -0.01u[k-1] + -0.00u[k-2] + 0.00u[k-3] + 1.07e[k-1]
+Residue mean of third order system: 0.015619631635563314
+### Gaussian Input for Third Order System (37)
+Third order identified system: y[k] = -0.57y[k-1] + -0.27y[k-2] + -0.11y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.03u[k-3] + 0.97e[k-1]
+Residue mean of third order system: -0.05016047910306764
+### Gaussian Input for Third Order System (38)
+Third order identified system: y[k] = -0.79y[k-1] + -0.32y[k-2] + 0.12y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.88e[k-1]
+Residue mean of third order system: -0.03387946268971945
+### Gaussian Input for Third Order System (39)
+Third order identified system: y[k] = -0.85y[k-1] + -0.37y[k-2] + 0.27y[k-3] + -0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.94e[k-1]
+Residue mean of third order system: 0.10767560791703529
+### Gaussian Input for Third Order System (40)
+Third order identified system: y[k] = -0.71y[k-1] + -0.34y[k-2] + 0.11y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.83e[k-1]
+Residue mean of third order system: -0.033951767929970615
+### Gaussian Input for Third Order System (41)
+Third order identified system: y[k] = -0.65y[k-1] + -0.31y[k-2] + 0.03y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.01277800176167128
+### Gaussian Input for Third Order System (42)
+Third order identified system: y[k] = -0.76y[k-1] + -0.33y[k-2] + 0.14y[k-3] + -0.00u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 0.90e[k-1]
+Residue mean of third order system: -0.024974068305751232
+### Gaussian Input for Third Order System (43)
+Third order identified system: y[k] = -0.78y[k-1] + -0.37y[k-2] + 0.20y[k-3] + -0.00u[k-1] + 0.03u[k-2] + 0.04u[k-3] + 0.89e[k-1]
+Residue mean of third order system: -0.07189276597123773
+### Gaussian Input for Third Order System (44)
+Third order identified system: y[k] = -0.59y[k-1] + -0.35y[k-2] + -0.01y[k-3] + -0.00u[k-1] + 0.03u[k-2] + 0.04u[k-3] + 0.97e[k-1]
+Residue mean of third order system: -0.056817811973809196
+### Gaussian Input for Third Order System (45)
+Third order identified system: y[k] = -0.69y[k-1] + -0.34y[k-2] + 0.08y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.009763233684378122
+### Gaussian Input for Third Order System (46)
+Third order identified system: y[k] = -0.49y[k-1] + -0.33y[k-2] + -0.09y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.15e[k-1]
+Residue mean of third order system: 0.11394938149664796
+### Gaussian Input for Third Order System (47)
+Third order identified system: y[k] = -0.67y[k-1] + -0.35y[k-2] + 0.05y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 1.08e[k-1]
+Residue mean of third order system: 0.13684082632426053
+### Gaussian Input for Third Order System (48)
+Third order identified system: y[k] = -0.60y[k-1] + -0.32y[k-2] + -0.02y[k-3] + 0.02u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.14e[k-1]
+Residue mean of third order system: -0.0011284721496371353
+### Gaussian Input for Third Order System (49)
+Third order identified system: y[k] = -0.68y[k-1] + -0.33y[k-2] + 0.14y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.10e[k-1]
+Residue mean of third order system: -0.006300135532476572
+### Gaussian Input for Third Order System (50)
+Third order identified system: y[k] = -0.78y[k-1] + -0.32y[k-2] + 0.14y[k-3] + 0.02u[k-1] + 0.02u[k-2] + 0.04u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.0053006696057455345
+### Gaussian Input for Third Order System (51)
+Third order identified system: y[k] = -0.78y[k-1] + -0.35y[k-2] + 0.13y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.04u[k-3] + 1.30e[k-1]
+Residue mean of third order system: 0.16424586844256153
+### Gaussian Input for Third Order System (52)
+Third order identified system: y[k] = -0.64y[k-1] + -0.33y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.17e[k-1]
+Residue mean of third order system: 0.0023403507475035492
+### Gaussian Input for Third Order System (53)
+Third order identified system: y[k] = -0.71y[k-1] + -0.27y[k-2] + 0.05y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.04u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.014438459646350082
+### Gaussian Input for Third Order System (54)
+Third order identified system: y[k] = -0.76y[k-1] + -0.35y[k-2] + 0.16y[k-3] + -0.01u[k-1] + 0.02u[k-2] + 0.04u[k-3] + 1.04e[k-1]
+Residue mean of third order system: 0.2887784657452989
+### Gaussian Input for Third Order System (55)
+Third order identified system: y[k] = -0.62y[k-1] + -0.37y[k-2] + -0.01y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.03e[k-1]
+Residue mean of third order system: 0.12317707727875173
+### Gaussian Input for Third Order System (56)
+Third order identified system: y[k] = -0.61y[k-1] + -0.31y[k-2] + 0.00y[k-3] + -0.02u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.90e[k-1]
+Residue mean of third order system: 0.04615010230532021
+### Gaussian Input for Third Order System (57)
+Third order identified system: y[k] = -0.60y[k-1] + -0.30y[k-2] + -0.04y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 1.10e[k-1]
+Residue mean of third order system: -0.06440501791505475
+### Gaussian Input for Third Order System (58)
+Third order identified system: y[k] = -0.90y[k-1] + -0.34y[k-2] + 0.28y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.92e[k-1]
+Residue mean of third order system: -0.09838686602850764
+### Gaussian Input for Third Order System (59)
+Third order identified system: y[k] = -0.64y[k-1] + -0.35y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.99e[k-1]
+Residue mean of third order system: -0.030635884142554897
+### Gaussian Input for Third Order System (60)
+Third order identified system: y[k] = -0.82y[k-1] + -0.38y[k-2] + 0.24y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 1.14e[k-1]
+Residue mean of third order system: 0.09715587746264723
+### Gaussian Input for Third Order System (61)
+Third order identified system: y[k] = -0.74y[k-1] + -0.32y[k-2] + 0.11y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 1.03e[k-1]
+Residue mean of third order system: -0.1725353915996812
+### Gaussian Input for Third Order System (62)
+Third order identified system: y[k] = -0.60y[k-1] + -0.38y[k-2] + 0.01y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 0.89e[k-1]
+Residue mean of third order system: 0.1367285370572713
+### Gaussian Input for Third Order System (63)
+Third order identified system: y[k] = -0.82y[k-1] + -0.31y[k-2] + 0.16y[k-3] + -0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.82e[k-1]
+Residue mean of third order system: 0.008039226380959752
+### Gaussian Input for Third Order System (64)
+Third order identified system: y[k] = -0.61y[k-1] + -0.36y[k-2] + 0.01y[k-3] + -0.00u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.83e[k-1]
+Residue mean of third order system: 0.0845459184166738
+### Gaussian Input for Third Order System (65)
+Third order identified system: y[k] = -0.59y[k-1] + -0.28y[k-2] + -0.07y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.03u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.04622148646876306
+### Gaussian Input for Third Order System (66)
+Third order identified system: y[k] = -0.72y[k-1] + -0.29y[k-2] + 0.09y[k-3] + 0.00u[k-1] + 0.03u[k-2] + 0.02u[k-3] + 0.88e[k-1]
+Residue mean of third order system: -0.07706787289078329
+### Gaussian Input for Third Order System (67)
+Third order identified system: y[k] = -0.56y[k-1] + -0.23y[k-2] + -0.12y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 0.89e[k-1]
+Residue mean of third order system: 0.010323158202266043
+### Gaussian Input for Third Order System (68)
+Third order identified system: y[k] = -0.59y[k-1] + -0.31y[k-2] + 0.02y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.79e[k-1]
+Residue mean of third order system: -0.11125874995262422
+### Gaussian Input for Third Order System (69)
+Third order identified system: y[k] = -0.57y[k-1] + -0.35y[k-2] + -0.04y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 1.06e[k-1]
+Residue mean of third order system: 0.1116540689662663
+### Gaussian Input for Third Order System (70)
+Third order identified system: y[k] = -0.65y[k-1] + -0.27y[k-2] + 0.02y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.93e[k-1]
+Residue mean of third order system: 0.09520955164771529
+### Gaussian Input for Third Order System (71)
+Third order identified system: y[k] = -0.58y[k-1] + -0.35y[k-2] + 0.02y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.01e[k-1]
+Residue mean of third order system: -0.005965410280186774
+### Gaussian Input for Third Order System (72)
+Third order identified system: y[k] = -0.69y[k-1] + -0.33y[k-2] + 0.11y[k-3] + -0.00u[k-1] + 0.02u[k-2] + 0.04u[k-3] + 1.10e[k-1]
+Residue mean of third order system: -0.1062754548042219
+### Gaussian Input for Third Order System (73)
+Third order identified system: y[k] = -0.58y[k-1] + -0.31y[k-2] + -0.05y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 1.07e[k-1]
+Residue mean of third order system: 0.04056240380804464
+### Gaussian Input for Third Order System (74)
+Third order identified system: y[k] = -0.62y[k-1] + -0.33y[k-2] + 0.01y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.08e[k-1]
+Residue mean of third order system: 0.07733118519020976
+### Gaussian Input for Third Order System (75)
+Third order identified system: y[k] = -0.64y[k-1] + -0.33y[k-2] + 0.04y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.08e[k-1]
+Residue mean of third order system: 0.006083573951849013
+### Gaussian Input for Third Order System (76)
+Third order identified system: y[k] = -0.73y[k-1] + -0.33y[k-2] + 0.17y[k-3] + -0.00u[k-1] + 0.02u[k-2] + 0.04u[k-3] + 1.15e[k-1]
+Residue mean of third order system: 0.04882459574100786
+### Gaussian Input for Third Order System (77)
+Third order identified system: y[k] = -0.82y[k-1] + -0.31y[k-2] + 0.18y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.79e[k-1]
+Residue mean of third order system: 0.10348003537512407
+### Gaussian Input for Third Order System (78)
+Third order identified system: y[k] = -0.69y[k-1] + -0.31y[k-2] + 0.07y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.18e[k-1]
+Residue mean of third order system: -0.024937168123243092
+### Gaussian Input for Third Order System (79)
+Third order identified system: y[k] = -0.74y[k-1] + -0.36y[k-2] + 0.14y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.02u[k-3] + 1.09e[k-1]
+Residue mean of third order system: -0.02424452961808995
+### Gaussian Input for Third Order System (80)
+Third order identified system: y[k] = -0.68y[k-1] + -0.37y[k-2] + 0.06y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.11e[k-1]
+Residue mean of third order system: 0.1073633683690228
+### Gaussian Input for Third Order System (81)
+Third order identified system: y[k] = -0.80y[k-1] + -0.28y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.99e[k-1]
+Residue mean of third order system: 0.07253054819718281
+### Gaussian Input for Third Order System (82)
+Third order identified system: y[k] = -0.58y[k-1] + -0.34y[k-2] + -0.00y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.29e[k-1]
+Residue mean of third order system: 0.00732881947543097
+### Gaussian Input for Third Order System (83)
+Third order identified system: y[k] = -0.60y[k-1] + -0.30y[k-2] + -0.05y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.10e[k-1]
+Residue mean of third order system: 0.05410339271101958
+### Gaussian Input for Third Order System (84)
+Third order identified system: y[k] = -0.80y[k-1] + -0.33y[k-2] + 0.14y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 0.89e[k-1]
+Residue mean of third order system: 0.02440266680236463
+### Gaussian Input for Third Order System (85)
+Third order identified system: y[k] = -0.56y[k-1] + -0.33y[k-2] + -0.08y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.01e[k-1]
+Residue mean of third order system: 0.09312171372261523
+### Gaussian Input for Third Order System (86)
+Third order identified system: y[k] = -0.64y[k-1] + -0.36y[k-2] + -0.03y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -1.0163003985316643
+### Gaussian Input for Third Order System (87)
+Third order identified system: y[k] = -0.66y[k-1] + -0.33y[k-2] + 0.07y[k-3] + 0.01u[k-1] + 0.03u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: 0.05200104525450937
+### Gaussian Input for Third Order System (88)
+Third order identified system: y[k] = -0.62y[k-1] + -0.36y[k-2] + -0.03y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 0.91e[k-1]
+Residue mean of third order system: -0.24663822798588902
+### Gaussian Input for Third Order System (89)
+Third order identified system: y[k] = -0.86y[k-1] + -0.28y[k-2] + 0.20y[k-3] + 0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.90e[k-1]
+Residue mean of third order system: -0.05458279492483139
+### Gaussian Input for Third Order System (90)
+Third order identified system: y[k] = -0.83y[k-1] + -0.28y[k-2] + 0.16y[k-3] + 0.02u[k-1] + 0.03u[k-2] + 0.01u[k-3] + 0.81e[k-1]
+Residue mean of third order system: 0.05298771199402208
+### Gaussian Input for Third Order System (91)
+Third order identified system: y[k] = -0.56y[k-1] + -0.30y[k-2] + -0.08y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 1.06e[k-1]
+Residue mean of third order system: -0.04456502021955789
+### Gaussian Input for Third Order System (92)
+Third order identified system: y[k] = -0.64y[k-1] + -0.28y[k-2] + -0.06y[k-3] + -0.00u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.84e[k-1]
+Residue mean of third order system: -0.08073294085333979
+### Gaussian Input for Third Order System (93)
+Third order identified system: y[k] = -0.68y[k-1] + -0.23y[k-2] + 0.11y[k-3] + -0.00u[k-1] + 0.01u[k-2] + 0.03u[k-3] + 0.98e[k-1]
+Residue mean of third order system: 0.02814577458679347
+### Gaussian Input for Third Order System (94)
+Third order identified system: y[k] = -0.68y[k-1] + -0.33y[k-2] + 0.05y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 1.00e[k-1]
+Residue mean of third order system: -0.18998725508683692
+### Gaussian Input for Third Order System (95)
+Third order identified system: y[k] = -0.73y[k-1] + -0.30y[k-2] + 0.11y[k-3] + 0.00u[k-1] + -0.00u[k-2] + 0.02u[k-3] + 1.09e[k-1]
+Residue mean of third order system: 0.03139707733499324
+### Gaussian Input for Third Order System (96)
+Third order identified system: y[k] = -0.56y[k-1] + -0.26y[k-2] + -0.14y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.87e[k-1]
+Residue mean of third order system: -0.08163095795713655
+### Gaussian Input for Third Order System (97)
+Third order identified system: y[k] = -0.53y[k-1] + -0.31y[k-2] + -0.11y[k-3] + -0.01u[k-1] + 0.01u[k-2] + 0.03u[k-3] + 0.90e[k-1]
+Residue mean of third order system: -0.00042607673534612064
+### Gaussian Input for Third Order System (98)
+Third order identified system: y[k] = -0.62y[k-1] + -0.31y[k-2] + 0.01y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.05e[k-1]
+Residue mean of third order system: -0.06200610160154798
+### Gaussian Input for Third Order System (99)
+Third order identified system: y[k] = -0.60y[k-1] + -0.32y[k-2] + 0.00y[k-3] + 0.00u[k-1] + 0.01u[k-2] + 0.02u[k-3] + 0.95e[k-1]
+Residue mean of third order system: -0.022195160512570825
+### Gaussian Input for Third Order System (100)
+Third order identified system: y[k] = -0.80y[k-1] + -0.36y[k-2] + 0.21y[k-3] + -0.00u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 1.21e[k-1]
+Residue mean of third order system: -0.03193225186375326
+### Question 3 (Step(1)):
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Simulating with zero noise...
+1st Order identified system: y[k] = -0.93y[k-1] + 0.07u[k-1]
+Residue mean of 1st order system: -0.013720603829534798
+2nd Order identified system: y[k] = -1.89y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.02u[k-2]
+Residue mean of 2nd order system: -0.000030039719747443904
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+Residue mean of 3rd order system: 0.000000035231506382649505
+4th Order identified system: y[k] = -0.63y[k-1] + -0.75y[k-2] + 1.34y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.01u[k-4]
+Residue mean of 4th order system: -9.192125713476823
+5th Order identified system: y[k] = -0.09y[k-1] + -2.70y[k-2] + 1.76y[k-3] + 0.07y[k-4] + -0.00y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.01u[k-4] + 0.00u[k-5]
+Residue mean of 5th order system: -1331408427072354800000
+### Simulating Identified System without Gaussian noise...
+1st Order identified system: y[k] = -0.93y[k-1] + 0.07u[k-1]
+SSE: 4.165998693945879
+R²: 0.39058303469469646
+SNR: 13.802808705409822 dB
+2nd Order identified system: y[k] = -1.89y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.02u[k-2]
+SSE: 0.006417747637882089
+R²: 0.999061189266512
+SNR: 41.9261736446552 dB
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+SSE: 0.00000000000015249440647814487
+R²: 0.9999999999999777
+SNR: 148.16746086023608 dB
+4th Order identified system: y[k] = -0.63y[k-1] + -0.75y[k-2] + 1.34y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.01u[k-4]
+SSE: 846197.7031353186
+R²: -123783.78107601235
+SNR: -39.27471842175835 dB
+5th Order identified system: y[k] = -0.09y[k-1] + -2.70y[k-2] + 1.76y[k-3] + 0.07y[k-4] + -0.00y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.01u[k-4] + 0.00u[k-5]
+SSE: 58991440260033970000000000000000000000000000000
+R²: -8629475701589370000000000000000000000000000000
+SNR: -447.70788999480715 dB
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+### Simulating with Gaussian noise...
+1st Order identified system: y[k] = -0.99y[k-1] + 0.01u[k-1] + 1.08e[k-1]
+Residue mean of 1st order system: -0.49517516939593664
+2nd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.02u[k-2] + 1.00e[k-1]
+Residue mean of 2nd order system: -0.00011353922260212507
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+Residue mean of 3rd order system: 0.0000000000004879059309348399
+4th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.00u[k-4] + 1.00e[k-1]
+Residue mean of 4th order system: -0.00000000004638801811424065
+5th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.00y[k-5] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.00u[k-4] + 0.00u[k-5] + 1.00e[k-1]
+Residue mean of 5th order system: 0.000000000004426630555165456
+### Simulating Identified System with Gaussian noise...
+1st Order identified system: y[k] = -0.99y[k-1] + 0.01u[k-1] + 1.08e[k-1]
+SSE: 78.64667619116786
+R²: -0.19547526813981775
+SNR: 1.0431962704371427 dB
+2nd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.02u[k-2] + 1.00e[k-1]
+SSE: 0.008896496730804625
+R²: 0.999864768069932
+SNR: 40.507809765011345 dB
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+SSE: 0.0000000000000000000005701534124248215
+R²: 1
+SNR: 232.44008272037814 dB
+4th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.00u[k-4] + 1.00e[k-1]
+SSE: 0.0000000000000000005214848653973167
+R²: 1
+SNR: 202.82758291206406 dB
+5th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.00y[k-5] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.00u[k-4] + 0.00u[k-5] + 1.00e[k-1]
+SSE: 0.000000000000000000008240241111233225
+R²: 1
+SNR: 220.84060080566704 dB
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Simulating with Gaussian noise at sensor...
+1st Order identified system: y[k] = -0.90y[k-1] + 0.11u[k-1] + 1.18e[k-1]
+Residue mean of 1st order system: -0.00519427300977043
+2nd Order identified system: y[k] = -0.59y[k-1] + -0.30y[k-2] + 0.01u[k-1] + 0.12u[k-2] + 1.14e[k-1]
+Residue mean of 2nd order system: -0.0075792182435181375
+3rd Order identified system: y[k] = -0.58y[k-1] + -0.32y[k-2] + 0.02y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 1.16e[k-1]
+Residue mean of 3rd order system: -0.0064498599667026976
+4th Order identified system: y[k] = -0.54y[k-1] + -0.37y[k-2] + -0.10y[k-3] + 0.15y[k-4] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.12u[k-4] + 1.19e[k-1]
+Residue mean of 4th order system: -0.004854610950780868
+5th Order identified system: y[k] = -0.52y[k-1] + -0.34y[k-2] + -0.20y[k-3] + -0.04y[k-4] + 0.24y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.00u[k-3] + 0.05u[k-4] + 0.08u[k-5] + 1.09e[k-1]
+Residue mean of 5th order system: -0.004181649215626091
+### Simulating Identified System with Gaussian noise at sensor...
+1st Order identified system: y[k] = -0.90y[k-1] + 0.11u[k-1] + 1.18e[k-1]
+SSE: 1.7331967271217836
+R²: 0.7568825781645714
+SNR: 17.611521397359155 dB
+2nd Order identified system: y[k] = -0.59y[k-1] + -0.30y[k-2] + 0.01u[k-1] + 0.12u[k-2] + 1.14e[k-1]
+SSE: 1.8833623758462146
+R²: 0.7358186765342268
+SNR: 17.250661097820817 dB
+3rd Order identified system: y[k] = -0.58y[k-1] + -0.32y[k-2] + 0.02y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.12u[k-3] + 1.16e[k-1]
+SSE: 1.6661307190574755
+R²: 0.7662900012910073
+SNR: 17.78290928296417 dB
+4th Order identified system: y[k] = -0.54y[k-1] + -0.37y[k-2] + -0.10y[k-3] + 0.15y[k-4] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.12u[k-4] + 1.19e[k-1]
+SSE: 1.2588518878356074
+R²: 0.8234194533984078
+SNR: 19.00025364474852 dB
+5th Order identified system: y[k] = -0.52y[k-1] + -0.34y[k-2] + -0.20y[k-3] + -0.04y[k-4] + 0.24y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.00u[k-3] + 0.05u[k-4] + 0.08u[k-5] + 1.09e[k-1]
+SSE: 0.8474250265930301
+R²: 0.88113075426455
+SNR: 20.718987143369656 dB
+### Question 3 (RandomSignal(-1, 1)):
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Simulating with zero noise...
+1st Order identified system: y[k] = -0.99y[k-1] + 0.01u[k-1]
+Residue mean of 1st order system: -0.02870830343516102
+2nd Order identified system: y[k] = -1.92y[k-1] + 0.94y[k-2] + 0.00u[k-1] + 0.01u[k-2]
+Residue mean of 2nd order system: -0.020937671293764892
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+Residue mean of 3rd order system: -0.0000000000004725997891641409
+4th Order identified system: y[k] = -0.94y[k-1] + -0.96y[k-2] + 0.90y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.01u[k-4]
+Residue mean of 4th order system: 0.5193944520500893
+5th Order identified system: y[k] = -3.82y[k-1] + 1.72y[k-2] + 3.58y[k-3] + -2.29y[k-4] + -0.00y[k-5] + 0.01u[k-1] + -0.00u[k-2] + -0.04u[k-3] + -0.04u[k-4] + -0.02u[k-5]
+Residue mean of 5th order system: -79303839164113930000000000000000000000000
+### Simulating Identified System without Gaussian noise...
+1st Order identified system: y[k] = -0.99y[k-1] + 0.01u[k-1]
+SSE: 4.415889546397972
+R²: 0.04332857476221963
+SNR: 13.549817980482837 dB
+2nd Order identified system: y[k] = -1.92y[k-1] + 0.94y[k-2] + 0.00u[k-1] + 0.01u[k-2]
+SSE: 0.23210869438497533
+R²: 0.9497152831532025
+SNR: 26.343085913290984 dB
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+SSE: 0.0000000000000000000015816467681779877
+R²: 1
+SNR: 228.00890501723384 dB
+4th Order identified system: y[k] = -0.94y[k-1] + -0.96y[k-2] + 0.90y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.01u[k-4]
+SSE: 35.52179681523267
+R²: -6.695547551445227
+SNR: 4.495050742221558 dB
+5th Order identified system: y[k] = -3.82y[k-1] + 1.72y[k-2] + 3.58y[k-3] + -2.29y[k-4] + -0.00y[k-5] + 0.01u[k-1] + -0.00u[k-2] + -0.04u[k-3] + -0.04u[k-4] + -0.02u[k-5]
+SSE: 30590771028855840000000000000000000000000000000000000000000000000000000000000000000000
+R²: -6627275481373792000000000000000000000000000000000000000000000000000000000000000000000
+SNR: -834.8559042335138 dB
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+### Simulating with Gaussian noise...
+1st Order identified system: y[k] = -0.99y[k-1] + 0.08u[k-1] + 0.88e[k-1]
+Residue mean of 1st order system: -0.31083379779747167
+2nd Order identified system: y[k] = -1.89y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 1.00e[k-1]
+Residue mean of 2nd order system: 0.016899907974227777
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+Residue mean of 3rd order system: 0.000000000001362211732303109
+4th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.00u[k-4] + 1.00e[k-1]
+Residue mean of 4th order system: -0.000000000006489740498466512
+5th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.00y[k-5] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.00u[k-4] + -0.00u[k-5] + 1.00e[k-1]
+Residue mean of 5th order system: -0.000000000002786168899759911
+### Simulating Identified System with Gaussian noise...
+1st Order identified system: y[k] = -0.99y[k-1] + 0.08u[k-1] + 0.88e[k-1]
+SSE: 69.18739140031545
+R²: 0.042024699113748065
+SNR: 1.5997304346509003 dB
+2nd Order identified system: y[k] = -1.89y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 1.00e[k-1]
+SSE: 0.16118534909449553
+R²: 0.9977682120951225
+SNR: 27.926744358347722 dB
+3rd Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 1.00e[k-1]
+SSE: 0.0000000000000000000036974882226293036
+R²: 1
+SNR: 224.32093200659062 dB
+4th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.00u[k-4] + 1.00e[k-1]
+SSE: 0.00000000000000000013371459926958292
+R²: 1
+SNR: 208.7382117287206 dB
+5th Order identified system: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.00y[k-3] + -0.00y[k-4] + 0.00y[k-5] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3] + 0.00u[k-4] + -0.00u[k-5] + 1.00e[k-1]
+SSE: 0.000000000000000000026866415080212978
+R²: 1
+SNR: 215.70790279780084 dB
+- Difference Equation: y[k] = -1.88y[k-1] + 0.91y[k-2] + 0.01u[k-1] + 0.01u[k-2] + 0.01u[k-3]
+### Simulating with Gaussian noise at sensor...
+1st Order identified system: y[k] = -0.91y[k-1] + 0.01u[k-1] + 1.22e[k-1]
+Residue mean of 1st order system: 0.021718245214954295
+2nd Order identified system: y[k] = -0.64y[k-1] + -0.31y[k-2] + 0.01u[k-1] + 0.02u[k-2] + 1.07e[k-1]
+Residue mean of 2nd order system: 0.003117601217300644
+3rd Order identified system: y[k] = -0.64y[k-1] + -0.39y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 1.02e[k-1]
+Residue mean of 3rd order system: -0.005384417097232277
+4th Order identified system: y[k] = -0.57y[k-1] + -0.49y[k-2] + -0.05y[k-3] + 0.19y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.02u[k-4] + 0.99e[k-1]
+Residue mean of 4th order system: -0.0041748749284215726
+5th Order identified system: y[k] = -0.49y[k-1] + -0.47y[k-2] + -0.20y[k-3] + 0.05y[k-4] + 0.21y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.02u[k-4] + 0.01u[k-5] + 0.95e[k-1]
+Residue mean of 5th order system: -0.0013005652100557613
+### Simulating Identified System with Gaussian noise at sensor...
+1st Order identified system: y[k] = -0.91y[k-1] + 0.01u[k-1] + 1.22e[k-1]
+SSE: 3.460557193953825
+R²: 0.12979435813775742
+SNR: 14.60853968612712 dB
+2nd Order identified system: y[k] = -0.64y[k-1] + -0.31y[k-2] + 0.01u[k-1] + 0.02u[k-2] + 1.07e[k-1]
+SSE: 2.427293575033117
+R²: 0.3896229869743991
+SNR: 16.148776936695835 dB
+3rd Order identified system: y[k] = -0.64y[k-1] + -0.39y[k-2] + 0.09y[k-3] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 1.02e[k-1]
+SSE: 1.9581201477282288
+R²: 0.5076032255804499
+SNR: 17.081606639657117 dB
+4th Order identified system: y[k] = -0.57y[k-1] + -0.49y[k-2] + -0.05y[k-3] + 0.19y[k-4] + 0.01u[k-1] + 0.02u[k-2] + 0.02u[k-3] + 0.02u[k-4] + 0.99e[k-1]
+SSE: 1.598379853003881
+R²: 0.5980649681637717
+SNR: 17.963200032074226 dB
+5th Order identified system: y[k] = -0.49y[k-1] + -0.47y[k-2] + -0.20y[k-3] + 0.05y[k-4] + 0.21y[k-5] + 0.01u[k-1] + 0.02u[k-2] + 0.03u[k-3] + 0.02u[k-4] + 0.01u[k-5] + 0.95e[k-1]
+SSE: 1.2201880447501012
+R²: 0.6931666026125605
+SNR: 19.135732344858184 dB
+## Analyzing the samples system:
+### Question 4:
+Evaluating SSE for file: samples/dados_1.csv
+1 Order system SSE: 9.143713260080178
+2 Order system SSE: 5.918411113352106
+3 Order system SSE: 5.328302491987397
+4 Order system SSE: 5.276814617557897
+5 Order system SSE: 5.217629697873314
+Best order: 5 (SSE: 5.217629697873314)
+Evaluating SSE for file: samples/dados_2.csv
+1 Order system SSE: 81.53066037718362
+2 Order system SSE: 84.76985514496542
+3 Order system SSE: 78.7152663986594
+4 Order system SSE: 76.26244093725808
+5 Order system SSE: 75.5892251096006
+Best order: 5 (SSE: 75.5892251096006)

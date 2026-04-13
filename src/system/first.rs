@@ -50,6 +50,7 @@ impl StepResponse for FirstSystem {
         }
 
         plotter.display();
-        let _ = plotter.save(&format!("images/{}.png", title.as_ref()));
+        let res = plotter.save(&format!("images/{}.png", title.as_ref()));
+        println!("Saved result: {:?}", res);
     }
 }

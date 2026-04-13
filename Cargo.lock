@@ -50,7 +50,7 @@ checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
 [[package]]
 name = "aule"
 version = "0.1.0"
-source = "git+https://github.com/matheuswhite/aule-rs.git#070c1b5b121aa57be51de67b4b262139fbc67431"
+source = "git+https://github.com/matheuswhite/aule-rs.git#01b5fb1a9760d21756ab7237290b7d3281f44224"
 dependencies = [
  "csv",
  "libm",

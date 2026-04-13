@@ -1,6 +1,7 @@
 use crate::{
     questions::{
         question1::question_1, question2::question_2, question3::question_3, question4::question_4,
+        question5::question_5,
     },
     random_signal::RandomSignal,
     system::{first::FirstSystem, second::SecondSystem},
@@ -13,6 +14,7 @@ mod gaussian_signal;
 mod ordinary_least_squares;
 mod questions;
 mod random_signal;
+mod recursive_least_squares;
 mod system;
 mod zero_signal;
 
@@ -37,4 +39,5 @@ fn main() {
 
     println!("## Analyzing the samples system:");
     question_4();
+    question_5();
 }

@@ -49,7 +49,9 @@ impl OrdinaryLeastSquares {
 
         let psi_t = psi.t();
         let psi_t_psi = psi_t.dot(&psi);
-        let psi_t_psi_inv = psi_t_psi.inv().unwrap();
+        let Some(psi_t_psi_inv) = psi_t_psi.inv() else {
+            panic!("Matrix is not invertible");
+        };
         let psi_t_y = psi_t.dot(&y);
         let theta = psi_t_psi_inv.dot(&psi_t_y);
 

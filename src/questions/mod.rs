@@ -79,3 +79,19 @@ impl SSE {
             .sum::<f64>()
     }
 }
+
+pub struct AkaikeInformationCriterion;
+
+impl AkaikeInformationCriterion {
+    pub fn eval(sse: f64, num_params: usize, num_samples: usize) -> f64 {
+        2.0 * num_params as f64 + num_samples as f64 * (sse).ln()
+    }
+}
+
+pub struct BayesianInformationCriterion;
+
+impl BayesianInformationCriterion {
+    pub fn eval(sse: f64, num_params: usize, num_samples: usize) -> f64 {
+        (num_params as f64) * (num_samples as f64).ln() + num_samples as f64 * sse.ln()
+    }
+}

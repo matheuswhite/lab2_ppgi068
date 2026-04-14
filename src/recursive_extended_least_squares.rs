@@ -1,31 +1,32 @@
 use aule::prelude::*;
 use ndarray::Array2;
 
-pub struct RecursiveLeastSquares {
+pub struct RecursiveExtendedLeastSquares {
     last_theta: Array2<f64>,
     last_p: Array2<f64>,
     phi: Array2<f64>,
 }
 
-pub struct RLSInput {
+pub struct RELSInput {
     pub output: f64,
     pub input: f64,
+    pub noise: f64,
 }
 
-impl RecursiveLeastSquares {
+impl RecursiveExtendedLeastSquares {
     pub fn new(alpha: f64, order: usize) -> Self {
         Self {
-            last_theta: Array2::zeros((2 * order, 1)),
-            last_p: Array2::eye(2 * order) * alpha,
-            phi: Array2::zeros((2 * order, 1)),
+            last_theta: Array2::zeros((3 * order, 1)),
+            last_p: Array2::eye(3 * order) * alpha,
+            phi: Array2::zeros((3 * order, 1)),
         }
     }
 
     fn order(&self) -> usize {
-        self.last_theta.shape()[0] / 2
+        self.last_theta.shape()[0] / 3
     }
 
-    fn update_phi(&mut self, input: &RLSInput) {
+    fn update_phi(&mut self, input: &RELSInput) {
         let order = self.order();
         // shift phi down and insert new values at the top
         for i in (0..order * 2 - 1).rev() {
@@ -34,14 +35,16 @@ impl RecursiveLeastSquares {
 
         self.phi[[0, 0]] = -input.output;
         self.phi[[order, 0]] = input.input;
+        self.phi[[2 * order, 0]] = input.noise;
     }
 }
 
-impl Block for RecursiveLeastSquares {
-    type Input = RLSInput;
+impl Block for RecursiveExtendedLeastSquares {
+    type Input = RELSInput;
     type Output = Vec<f64>;
 
-    fn output(&mut self, input: Signal<Self::Input>) -> Signal<Self::Output> {
+    fn output(&mut self, mut input: Signal<Self::Input>) -> Signal<Self::Output> {
+        input.value.noise = input.value.output - self.phi.t().dot(&self.last_theta)[[0, 0]];
         self.update_phi(&input.value);
 
         let kalman_gain_num = self.last_p.dot(&self.phi);
@@ -52,14 +55,18 @@ impl Block for RecursiveLeastSquares {
         self.last_theta =
             self.last_theta.clone() + kalman_gain.dot(&(y_k - self.phi.t().dot(&self.last_theta)));
         self.last_p =
-            (Array2::eye(2 * self.order()) - kalman_gain.dot(&self.phi.t())).dot(&self.last_p);
+            (Array2::eye(3 * self.order()) - kalman_gain.dot(&self.phi.t())).dot(&self.last_p);
 
         input.map(|_| self.last_theta.clone().into_raw_vec())
     }
 }
 
-impl Pack<RLSInput> for Signal<(f64, f64)> {
-    fn pack(self) -> Signal<RLSInput> {
-        self.map(|(output, input)| RLSInput { output, input })
+impl Pack<RELSInput> for Signal<(f64, f64, f64)> {
+    fn pack(self) -> Signal<RELSInput> {
+        self.map(|(output, input, noise)| RELSInput {
+            output,
+            input,
+            noise,
+        })
     }
 }

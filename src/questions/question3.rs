@@ -41,6 +41,25 @@ where
     eval_systems(system_with_sensor_noise, total, original_result);
 }
 
+fn eval_systems(systems: Vec<DifferenceEquation>, total: usize, original_result: SimulationResult) {
+    for (order, sys) in systems.into_iter().enumerate() {
+        let order = order + 1;
+        println!("{} Order identified system: {}", ordinal_str(order), sys);
+        let res = sys.simulate(
+            total,
+            ArraySignal::new(&original_result.inputs),
+            ArraySignal::new(&original_result.noises),
+        );
+
+        let sse = SSE::eval(&original_result.outputs, &res.outputs);
+        println!("SSE: {}", sse);
+        let r2 = CoefficientOfDetermination::eval(&original_result.outputs, &res.outputs);
+        println!("R²: {}", r2);
+        let snr = SignalToNoiseRatio::eval(&original_result.outputs, &res.outputs);
+        println!("SNR: {} dB", snr);
+    }
+}
+
 struct CoefficientOfDetermination;
 
 impl CoefficientOfDetermination {
@@ -58,24 +77,5 @@ impl SignalToNoiseRatio {
     pub fn eval(outputs: &[f64], estimated_outputs: &[f64]) -> f64 {
         let sse = SSE::eval(outputs, estimated_outputs);
         -10.0 * (sse / outputs.len() as f64).log10()
-    }
-}
-
-fn eval_systems(systems: Vec<DifferenceEquation>, total: usize, original_result: SimulationResult) {
-    for (order, sys) in systems.into_iter().enumerate() {
-        let order = order + 1;
-        println!("{} Order identified system: {}", ordinal_str(order), sys);
-        let res = sys.simulate(
-            total,
-            ArraySignal::new(&original_result.inputs),
-            ArraySignal::new(&original_result.noises),
-        );
-
-        let sse = SSE::eval(&original_result.outputs, &res.outputs);
-        println!("SSE: {}", sse);
-        let r2 = CoefficientOfDetermination::eval(&original_result.outputs, &res.outputs);
-        println!("R²: {}", r2);
-        let snr = SignalToNoiseRatio::eval(&original_result.outputs, &res.outputs);
-        println!("SNR: {} dB", snr);
     }
 }

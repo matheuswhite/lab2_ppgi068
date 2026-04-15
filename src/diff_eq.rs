@@ -108,21 +108,29 @@ impl Display for DifferenceEquation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut output = format!("y[k] = ");
         for i in 0..self.a.shape()[1] {
-            output += &format!("{:.2}y[k-{}] + ", -self.a[[0, i]], i + 1);
+            output += &format!("{:.2}y[k-{}] + ", self.a[[0, i]], i + 1);
         }
         for i in 0..self.b.shape()[1] {
-            if i == self.b.len() - 1 && self.c.len() == 0 {
-                output += &format!("{:.2}u[k-{}]", self.b[[0, i]], i + 1);
+            if i == 0 {
+                output += &format!("{:.2}u[k]", self.b[[0, i]]);
             } else {
-                output += &format!("{:.2}u[k-{}] + ", self.b[[0, i]], i + 1);
+                output += &format!("{:.2}u[k-{}]", self.b[[0, i]], i);
+            }
+
+            if i != self.b.shape()[1] - 1 || self.c.shape()[1] > 0 {
+                output += " + ";
             }
         }
 
         for i in 0..self.c.shape()[1] {
-            if i == self.c.len() - 1 {
-                output += &format!("{:.2}e[k-{}]", self.c[[0, i]], i + 1);
+            if i == 0 {
+                output += &format!("{:.2}e[k]", self.c[[0, i]]);
             } else {
-                output += &format!("{:.2}e[k-{}] + ", self.c[[0, i]], i + 1);
+                output += &format!("{:.2}e[k-{}]", self.c[[0, i]], i);
+            }
+
+            if i != self.c.shape()[1] - 1 {
+                output += " + ";
             }
         }
 

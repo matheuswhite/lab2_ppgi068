@@ -69,6 +69,16 @@ impl DifferenceEquation {
             noises,
         }
     }
+
+    pub fn parameters(&self) -> Vec<f64> {
+        let mut params = vec![];
+
+        params.extend(self.a.iter());
+        params.extend(self.b.iter());
+        params.extend(self.c.iter());
+
+        params
+    }
 }
 
 impl Block for DifferenceEquation {

@@ -2,7 +2,8 @@ use crate::{
     array_signal::ArraySignal,
     diff_eq::{DifferenceEquation, SimulationResult},
     gaussian_signal::GaussianSignal,
-    questions::{SSE, identify_systems, ordinal_str},
+    ordinary_least_squares::OrdinaryLeastSquares,
+    questions::{SSE, ordinal_str},
     system::System,
     zero_signal::ZeroSignal,
 };
@@ -21,14 +22,14 @@ where
     let diff_eq = sys.to_diff_eq(dt, &[]);
     println!("### Simulating with zero noise...");
     let original_result = diff_eq.simulate(total, input.clone(), ZeroSignal);
-    let systems_without_noise = identify_systems(&original_result, total, false);
+    let systems_without_noise = identify_systems(&original_result, false);
     println!("### Simulating Identified System without Gaussian noise...");
     eval_systems(systems_without_noise, total, original_result);
 
     let diff_eq = sys.to_diff_eq(dt, &[1.0]);
     println!("### Simulating with Gaussian noise...");
     let original_result = diff_eq.simulate(total, input.clone(), GaussianSignal::new(0.0, 0.05));
-    let systems_with_dynamic_noise = identify_systems(&original_result, total, true);
+    let systems_with_dynamic_noise = identify_systems(&original_result, true);
     println!("### Simulating Identified System with Gaussian noise...");
     eval_systems(systems_with_dynamic_noise, total, original_result);
 
@@ -36,7 +37,7 @@ where
     println!("### Simulating with Gaussian noise at sensor...");
     let mut original_result = diff_eq.simulate(total, input.clone(), ZeroSignal);
     original_result.add_noise_at_end(GaussianSignal::new(0.0, 0.05));
-    let system_with_sensor_noise = identify_systems(&original_result, total, true);
+    let system_with_sensor_noise = identify_systems(&original_result, true);
     println!("### Simulating Identified System with Gaussian noise at sensor...");
     eval_systems(system_with_sensor_noise, total, original_result);
 }
@@ -58,6 +59,29 @@ fn eval_systems(systems: Vec<DifferenceEquation>, total: usize, original_result:
         let snr = SignalToNoiseRatio::eval(&original_result.outputs, &res.outputs);
         println!("SNR: {} dB", snr);
     }
+}
+
+pub fn identify_systems(
+    simulation_result: &SimulationResult,
+    enable_noise: bool,
+) -> Vec<DifferenceEquation> {
+    let noise_order = if !enable_noise { 0 } else { 1 };
+    let mut systems = vec![];
+
+    for order in 1..=5 {
+        let sys = OrdinaryLeastSquares::identify(
+            &simulation_result.outputs,
+            &simulation_result.inputs,
+            &simulation_result.noises,
+            order,
+            order,
+            noise_order,
+        );
+        println!("{} Order identified system: {}", ordinal_str(order), sys);
+        systems.push(sys);
+    }
+
+    systems
 }
 
 struct CoefficientOfDetermination;

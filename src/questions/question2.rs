@@ -10,7 +10,13 @@ use crate::{
 use aule::prelude::*;
 use std::fmt::Display;
 
-pub fn question_2<I>(sys: &mut impl System, input: I)
+pub struct Question2Output {
+    pub system_without_noise: (DifferenceEquation, SimulationResult),
+    pub system_with_noise: (DifferenceEquation, SimulationResult),
+    pub system_with_noise_at_end: (DifferenceEquation, SimulationResult),
+}
+
+pub fn question_2<I>(sys: &mut impl System, input: I) -> Question2Output
 where
     I: Block<Input = (), Output = f64> + Clone + Display,
 {
@@ -19,21 +25,24 @@ where
     let dt = 0.1;
     let total = 100;
 
-    let diff_eq = sys.to_diff_eq(dt, &[]);
+    let diff_eq1 = sys.to_diff_eq(dt, &[]);
     println!("### Simulating with zero noise...");
-    let simulation_result = diff_eq.simulate(total, input.clone(), ZeroSignal);
-    identify_systems(&simulation_result, total, false);
+    let simulation_result1 = diff_eq1.clone().simulate(total, input.clone(), ZeroSignal);
+    identify_systems(&simulation_result1, total, false);
 
-    let diff_eq = sys.to_diff_eq(dt, &[1.0]);
+    let diff_eq2 = sys.to_diff_eq(dt, &[1.0]);
     println!("### Simulating with Gaussian noise...");
-    let simulation_result = diff_eq.simulate(total, input.clone(), GaussianSignal::new(0.0, 0.05));
-    identify_systems(&simulation_result, total, true);
+    let simulation_result2 =
+        diff_eq2
+            .clone()
+            .simulate(total, input.clone(), GaussianSignal::new(0.0, 0.05));
+    identify_systems(&simulation_result2, total, true);
 
-    let diff_eq = sys.to_diff_eq(dt, &[]);
+    let diff_eq3 = sys.to_diff_eq(dt, &[]);
     println!("### Simulating with Gaussian noise at the end...");
-    let mut simulation_result = diff_eq.simulate(total, input.clone(), ZeroSignal);
-    simulation_result.add_noise_at_end(GaussianSignal::new(0.0, 0.05));
-    identify_systems(&simulation_result, total, true);
+    let mut simulation_result3 = diff_eq3.clone().simulate(total, input.clone(), ZeroSignal);
+    simulation_result3.add_noise_at_end(GaussianSignal::new(0.0, 0.05));
+    identify_systems(&simulation_result3, total, true);
 
     let diff_eq = sys.to_diff_eq(dt, &[]);
     let mut parameters_mean = vec![];
@@ -67,13 +76,15 @@ where
             (s - m.powi(2)).sqrt()
         );
     }
+
+    Question2Output {
+        system_without_noise: (diff_eq1, simulation_result1),
+        system_with_noise: (diff_eq2, simulation_result2),
+        system_with_noise_at_end: (diff_eq3, simulation_result3),
+    }
 }
 
-pub fn identify_systems(
-    simulation_result: &SimulationResult,
-    total: usize,
-    enable_noise: bool,
-) -> Vec<DifferenceEquation> {
+pub fn identify_systems(simulation_result: &SimulationResult, total: usize, enable_noise: bool) {
     let noise_order = if !enable_noise { 0 } else { 1 };
     let mut systems = vec![];
 
@@ -120,8 +131,6 @@ pub fn identify_systems(
 
         systems.push(sys);
     }
-
-    systems
 }
 
 fn identify_system_third_system(simulation_result: &SimulationResult, total: usize) -> Vec<f64> {

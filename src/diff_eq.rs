@@ -14,6 +14,7 @@ pub struct DifferenceEquation {
     last_errors: Array2<f64>,
 }
 
+#[derive(Debug, Clone)]
 pub struct SimulationResult {
     pub inputs: Vec<f64>,
     pub outputs: Vec<f64>,

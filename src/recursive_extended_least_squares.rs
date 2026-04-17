@@ -45,7 +45,6 @@ impl Block for RecursiveExtendedLeastSquares {
 
     fn output(&mut self, mut input: Signal<Self::Input>) -> Signal<Self::Output> {
         input.value.noise = input.value.output - self.phi.t().dot(&self.last_theta)[[0, 0]];
-        self.update_phi(&input.value);
 
         let kalman_gain_num = self.last_p.dot(&self.phi);
         let kalman_gain_den = 1.0 + self.phi.t().dot(&self.last_p).dot(&self.phi);
@@ -56,6 +55,8 @@ impl Block for RecursiveExtendedLeastSquares {
             self.last_theta.clone() + kalman_gain.dot(&(y_k - self.phi.t().dot(&self.last_theta)));
         self.last_p =
             (Array2::eye(3 * self.order()) - kalman_gain.dot(&self.phi.t())).dot(&self.last_p);
+
+        self.update_phi(&input.value);
 
         input.map(|_| self.last_theta.clone().into_raw_vec())
     }

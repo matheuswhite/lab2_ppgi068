@@ -1,7 +1,7 @@
 use crate::{
     array_signal::ArraySignal,
     ordinary_least_squares::OrdinaryLeastSquares,
-    questions::{SSE, ordinal_str},
+    questions::{SSE, ordinal_str, print_table},
     zero_signal::ZeroSignal,
 };
 use aule::prelude::*;
@@ -44,22 +44,6 @@ fn print_justification(arx_mse: &[f64], armax_mse: &[f64]) {
         "Apresenta o menor MSE entre os modelos testados ({})\n",
         best_mse
     );
-}
-
-fn print_table(title: impl AsRef<str>, arx_mse: &[f64], armax_mse: &[f64]) {
-    println!("{} table:", title.as_ref());
-    println!("| {:<10}| {:<10}| {:<10}|", "Ordem", "ARX MSE", "ARMAX MSE");
-    println!(
-        "|-{:<10}|-{:<10}|-{:<10}|",
-        "-".repeat(10),
-        "-".repeat(10),
-        "-".repeat(10)
-    );
-    for (order, (arx, armax)) in arx_mse.iter().zip(armax_mse).enumerate() {
-        let order = order + 1;
-
-        println!("| {:<10}| {:<10.5}| {:<10.5}|", order, arx, armax);
-    }
 }
 
 fn eval_arx_mse(filename: impl AsRef<str>) -> (Vec<(Vec<f64>, Vec<f64>)>, Vec<f64>) {

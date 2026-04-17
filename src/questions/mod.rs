@@ -18,6 +18,22 @@ pub fn ordinal_str(value: usize) -> String {
     )
 }
 
+pub fn print_table(title: impl AsRef<str>, arx_mse: &[f64], armax_mse: &[f64]) {
+    println!("{} table:", title.as_ref());
+    println!("| {:<10}| {:<10}| {:<10}|", "Ordem", "ARX MSE", "ARMAX MSE");
+    println!(
+        "|-{:<10}|-{:<10}|-{:<10}|",
+        "-".repeat(10),
+        "-".repeat(10),
+        "-".repeat(10)
+    );
+    for (order, (arx, armax)) in arx_mse.iter().zip(armax_mse).enumerate() {
+        let order = order + 1;
+
+        println!("| {:<10}| {:<10.5}| {:<10.5}|", order, arx, armax);
+    }
+}
+
 pub struct SSE;
 
 impl SSE {

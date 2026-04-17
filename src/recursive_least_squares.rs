@@ -42,8 +42,6 @@ impl Block for RecursiveLeastSquares {
     type Output = Vec<f64>;
 
     fn output(&mut self, input: Signal<Self::Input>) -> Signal<Self::Output> {
-        self.update_phi(&input.value);
-
         let kalman_gain_num = self.last_p.dot(&self.phi);
         let kalman_gain_den = 1.0 + self.phi.t().dot(&self.last_p).dot(&self.phi);
         let kalman_gain = kalman_gain_num / kalman_gain_den;
@@ -53,6 +51,8 @@ impl Block for RecursiveLeastSquares {
             self.last_theta.clone() + kalman_gain.dot(&(y_k - self.phi.t().dot(&self.last_theta)));
         self.last_p =
             (Array2::eye(2 * self.order()) - kalman_gain.dot(&self.phi.t())).dot(&self.last_p);
+
+        self.update_phi(&input.value);
 
         input.map(|_| self.last_theta.clone().into_raw_vec())
     }

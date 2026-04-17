@@ -25,18 +25,18 @@ fn main() {
     println!("## Analyzing the first system:");
     let mut first_system = FirstSystem::default();
     question_1(&mut first_system);
-    question_2(&mut first_system, Step::new(1.0));
-    question_2(&mut first_system, RandomSignal::new(-1.0, 1.0));
-    question_3(&mut first_system, Step::new(1.0));
-    question_3(&mut first_system, RandomSignal::new(-1.0, 1.0));
+    let output = question_2(&mut first_system, Step::new(1.0));
+    question_3(output, Step::new(1.0));
+    let output = question_2(&mut first_system, RandomSignal::new(-1.0, 1.0));
+    question_3(output, RandomSignal::new(-1.0, 1.0));
 
     println!("## Analyzing the second system:");
     let mut second_system = SecondSystem::default();
     question_1(&mut second_system);
-    question_2(&mut second_system, Step::new(1.0));
-    question_2(&mut second_system, RandomSignal::new(-1.0, 1.0));
-    question_3(&mut second_system, Step::new(1.0));
-    question_3(&mut second_system, RandomSignal::new(-1.0, 1.0));
+    let output = question_2(&mut second_system, Step::new(1.0));
+    question_3(output, Step::new(1.0));
+    let output = question_2(&mut second_system, RandomSignal::new(-1.0, 1.0));
+    question_3(output, RandomSignal::new(-1.0, 1.0));
 
     println!("## Analyzing the samples system:");
     question_4();

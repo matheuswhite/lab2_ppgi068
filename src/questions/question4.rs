@@ -1,24 +1,69 @@
-use aule::prelude::*;
-
 use crate::{
     array_signal::ArraySignal,
-    gaussian_signal::GaussianSignal,
     ordinary_least_squares::OrdinaryLeastSquares,
     questions::{SSE, ordinal_str},
     zero_signal::ZeroSignal,
 };
+use aule::prelude::*;
 
 pub fn question_4() {
     println!("### Question 4:");
-    eval_arx_sse("samples/dados_1.csv");
-    eval_arx_sse("samples/dados_2.csv");
 
-    eval_armax_sse("samples/dados_1.csv");
-    eval_armax_sse("samples/dados_2.csv");
+    let (sim_outputs1, arx_mse1) = eval_arx_mse("samples/dados_1.csv");
+    let armax_mse1 = eval_armax_mse("samples/dados_1.csv", sim_outputs1);
+    print_table("samples/dados_1.csv", &arx_mse1, &armax_mse1);
+    print_justification(&arx_mse1, &armax_mse1);
+
+    let (sim_outputs2, arx_mse2) = eval_arx_mse("samples/dados_2.csv");
+    let armax_mse2 = eval_armax_mse("samples/dados_2.csv", sim_outputs2);
+    print_table("samples/dados_2.csv", &arx_mse2, &armax_mse2);
+    print_justification(&arx_mse2, &armax_mse2);
 }
 
-fn eval_arx_sse(filename: impl AsRef<str>) {
-    println!("Evaluating ARX SSE for file: {}", filename.as_ref());
+fn print_justification(arx_mse: &[f64], armax_mse: &[f64]) {
+    let (best_arx_order, best_arx_mse) = arx_mse
+        .iter()
+        .enumerate()
+        .min_by(|a, b| a.1.total_cmp(b.1))
+        .unwrap();
+    let (best_armax_order, best_armax_mse) = armax_mse
+        .iter()
+        .enumerate()
+        .min_by(|a, b| a.1.total_cmp(b.1))
+        .unwrap();
+    let (best_type, best_order, best_mse) = if best_arx_mse < best_armax_mse {
+        ("ARX", best_arx_order + 1, best_arx_mse)
+    } else {
+        ("ARMAX", best_armax_order + 1, best_armax_mse)
+    };
+    println!(
+        "O modelo {} de ordem {} foi selecionado pois:",
+        best_type, best_order
+    );
+    println!(
+        "Apresenta o menor MSE entre os modelos testados ({})\n",
+        best_mse
+    );
+}
+
+fn print_table(title: impl AsRef<str>, arx_mse: &[f64], armax_mse: &[f64]) {
+    println!("{} table:", title.as_ref());
+    println!("| {:<10}| {:<10}| {:<10}|", "Ordem", "ARX MSE", "ARMAX MSE");
+    println!(
+        "|-{:<10}|-{:<10}|-{:<10}|",
+        "-".repeat(10),
+        "-".repeat(10),
+        "-".repeat(10)
+    );
+    for (order, (arx, armax)) in arx_mse.iter().zip(armax_mse).enumerate() {
+        let order = order + 1;
+
+        println!("| {:<10}| {:<10.5}| {:<10.5}|", order, arx, armax);
+    }
+}
+
+fn eval_arx_mse(filename: impl AsRef<str>) -> (Vec<(Vec<f64>, Vec<f64>)>, Vec<f64>) {
+    println!("Evaluating ARX MSE for file: {}", filename.as_ref());
 
     let mut data1_output = FileSamples::from_csv(filename.as_ref(), 0, 1).unwrap();
     let mut data1_input = FileSamples::from_csv(filename.as_ref(), 0, 2).unwrap();
@@ -38,13 +83,18 @@ fn eval_arx_sse(filename: impl AsRef<str>) {
         inputs.push(input.value);
     }
 
-    let total = outputs.len().min(inputs.len());
+    let n = outputs.len().min(inputs.len());
+    let pivot = n / 2;
+    let estimation = (&outputs[..pivot], &inputs[..pivot]);
+    let validation = (&outputs[pivot..], &inputs[pivot..]);
+    let total = validation.0.len();
+
     let systems = (1..=5)
         .map(|order| {
             OrdinaryLeastSquares::identify(
-                &outputs,
-                &inputs,
-                &vec![0.0; outputs.len()],
+                estimation.0,
+                estimation.1,
+                &vec![0.0; estimation.0.len()],
                 order,
                 order,
                 0,
@@ -52,32 +102,47 @@ fn eval_arx_sse(filename: impl AsRef<str>) {
         })
         .collect::<Vec<_>>();
 
-    let sse_values = systems
-        .into_iter()
-        .enumerate()
-        .map(|(order, sys)| {
-            let sim_res = sys.simulate(total, ArraySignal::new(&inputs), ZeroSignal);
-            let sse = SSE::eval(&outputs[..total], &sim_res.outputs);
-            println!("{} Order system SSE: {}", ordinal_str(order + 1), sse);
-            sse
+    let sim_outputs = systems
+        .iter()
+        .map(|sys| {
+            let sim_res_est =
+                sys.clone()
+                    .simulate(total, ArraySignal::new(estimation.1), ZeroSignal);
+            let sim_res_val =
+                sys.clone()
+                    .simulate(total, ArraySignal::new(validation.1), ZeroSignal);
+            (sim_res_est.outputs, sim_res_val.outputs)
         })
         .collect::<Vec<_>>();
 
-    let best_order = sse_values
+    let mse_values = systems
+        .into_iter()
+        .enumerate()
+        .map(|(order, sys)| {
+            let sim_res = sys.simulate(total, ArraySignal::new(validation.1), ZeroSignal);
+            let mse = SSE::eval(validation.0, &sim_res.outputs) / total as f64;
+            println!("{} Order system MSE: {}", ordinal_str(order + 1), mse);
+            mse
+        })
+        .collect::<Vec<_>>();
+
+    let best_order = mse_values
         .iter()
         .enumerate()
         .min_by(|a, b| a.1.partial_cmp(b.1).unwrap())
         .map(|(order, _)| order + 1)
         .unwrap();
     println!(
-        "Best order: {} (SSE: {})",
+        "Best order: {} (MSE: {})",
         best_order,
-        sse_values[best_order - 1]
+        mse_values[best_order - 1]
     );
+
+    (sim_outputs, mse_values)
 }
 
-fn eval_armax_sse(filename: impl AsRef<str>) {
-    println!("Evaluating ARMAX SSE for file: {}", filename.as_ref());
+fn eval_armax_mse(filename: impl AsRef<str>, sim_outputs: Vec<(Vec<f64>, Vec<f64>)>) -> Vec<f64> {
+    println!("Evaluating ARMAX MSE for file: {}", filename.as_ref());
 
     let mut data1_output = FileSamples::from_csv(filename.as_ref(), 0, 1).unwrap();
     let mut data1_input = FileSamples::from_csv(filename.as_ref(), 0, 2).unwrap();
@@ -97,37 +162,71 @@ fn eval_armax_sse(filename: impl AsRef<str>) {
         inputs.push(input.value);
     }
 
-    let total = outputs.len().min(inputs.len());
-    let mut noise_generator = GaussianSignal::new(0.0, 0.05);
-    let noise = vec![0.0; total]
-        .into_iter()
-        .map(|_| noise_generator.generate())
-        .collect::<Vec<_>>();
+    let n = outputs.len().min(inputs.len());
+    let pivot = n / 2;
+    let estimation = (&outputs[..pivot], &inputs[..pivot]);
+    let validation = (&outputs[pivot..], &inputs[pivot..]);
+    let total = validation.0.len();
 
-    let systems = (1..=5)
-        .map(|order| OrdinaryLeastSquares::identify(&outputs, &inputs, &noise, order, order, order))
-        .collect::<Vec<_>>();
-
-    let sse_values = systems
+    let noises = sim_outputs
         .into_iter()
-        .enumerate()
-        .map(|(order, sys)| {
-            let sim_res = sys.simulate(total, ArraySignal::new(&inputs), ArraySignal::new(&noise));
-            let sse = SSE::eval(&outputs[..total], &sim_res.outputs);
-            println!("{} Order system SSE: {}", ordinal_str(order + 1), sse);
-            sse
+        .map(|sim_outputs| {
+            (
+                sim_outputs
+                    .0
+                    .iter()
+                    .zip(estimation.0)
+                    .map(|(so, o)| o - so)
+                    .collect::<Vec<_>>(),
+                sim_outputs
+                    .1
+                    .iter()
+                    .zip(validation.0)
+                    .map(|(so, o)| o - so)
+                    .collect::<Vec<_>>(),
+            )
         })
         .collect::<Vec<_>>();
 
-    let best_order = sse_values
+    let systems = (1..=5)
+        .map(|order| {
+            OrdinaryLeastSquares::identify(
+                estimation.0,
+                estimation.1,
+                &noises[order - 1].0,
+                order,
+                order,
+                order,
+            )
+        })
+        .collect::<Vec<_>>();
+
+    let mse_values = systems
+        .into_iter()
+        .enumerate()
+        .map(|(order, sys)| {
+            let sim_res = sys.simulate(
+                total,
+                ArraySignal::new(&validation.1),
+                ArraySignal::new(&noises[order].1),
+            );
+            let mse = SSE::eval(validation.0, &sim_res.outputs) / total as f64;
+            println!("{} Order system MSE: {}", ordinal_str(order + 1), mse);
+            mse
+        })
+        .collect::<Vec<_>>();
+
+    let best_order = mse_values
         .iter()
         .enumerate()
         .min_by(|a, b| a.1.partial_cmp(b.1).unwrap())
         .map(|(order, _)| order + 1)
         .unwrap();
     println!(
-        "Best order: {} (SSE: {})",
+        "Best order: {} (MSE: {})",
         best_order,
-        sse_values[best_order - 1]
+        mse_values[best_order - 1]
     );
+
+    mse_values
 }

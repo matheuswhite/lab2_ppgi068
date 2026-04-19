@@ -122,8 +122,8 @@ pub fn identify_systems(simulation_result: &SimulationResult, total: usize, enab
         let mut residue = ArraySignal::new(&residue);
         let title = format!("{} Order System Residue", ordinal_str(order));
         let mut plotter = Plotter::new(title.clone(), ["Residue"]);
-        for dt in Time::new(1.0, total as f32) {
-            let _ = dt * residue.as_block() * plotter.as_block();
+        for sim_state in Simulation::new(1.0, total as f32) {
+            let _ = sim_state * residue.as_block() * plotter.as_block();
         }
 
         plotter.display();

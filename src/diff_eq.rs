@@ -1,17 +1,16 @@
 use aule::prelude::*;
-use ndarray::Array2;
 use std::fmt::Display;
 
 use crate::gaussian_signal::GaussianSignal;
 
 #[derive(Debug, Clone)]
 pub struct DifferenceEquation {
-    a: Array2<f64>,
-    last_outputs: Array2<f64>,
-    b: Array2<f64>,
-    last_inputs: Array2<f64>,
-    c: Array2<f64>,
-    last_errors: Array2<f64>,
+    a: Mat<f64>,
+    last_outputs: Mat<f64>,
+    b: Mat<f64>,
+    last_inputs: Mat<f64>,
+    c: Mat<f64>,
+    last_errors: Mat<f64>,
 }
 
 #[derive(Debug, Clone)]
@@ -33,12 +32,12 @@ impl SimulationResult {
 impl DifferenceEquation {
     pub fn new(a: &[f64], b: &[f64], c: &[f64]) -> Self {
         Self {
-            a: Array2::from_shape_vec((1, a.len()), a.to_vec()).unwrap(),
-            last_outputs: Array2::zeros((a.len(), 1)),
-            b: Array2::from_shape_vec((1, b.len()), b.to_vec()).unwrap(),
-            last_inputs: Array2::zeros((b.len(), 1)),
-            c: Array2::from_shape_vec((1, c.len()), c.to_vec()).unwrap(),
-            last_errors: Array2::zeros((c.len(), 1)),
+            a: Mat::from_fn(1, a.len(), |_, j| a[j]),
+            last_outputs: Mat::from_fn(a.len(), 1, |i, _| a[i]),
+            b: Mat::from_fn(1, b.len(), |_, j| b[j]),
+            last_inputs: Mat::from_fn(b.len(), 1, |i, _| b[i]),
+            c: Mat::from_fn(1, c.len(), |_, j| c[j]),
+            last_errors: Mat::from_fn(c.len(), 1, |i, _| c[i]),
         }
     }
 
@@ -51,17 +50,17 @@ impl DifferenceEquation {
         let mut inputs = vec![];
         let mut outputs = vec![];
         let mut noises = vec![];
-        let time = Time::new(1.0, total as f32);
+        let simulation = Simulation::new(1.0, total as f32);
 
-        for dt in time {
-            let u = input.output(dt);
-            inputs.push(u.value);
+        for sim_state in simulation {
+            let u = input.block((), sim_state);
+            inputs.push(u);
 
-            let e = noise.output(dt);
-            noises.push(e.value);
+            let e = noise.block((), sim_state);
+            noises.push(e);
 
-            let y = self.output((u, e).pack());
-            outputs.push(y.value);
+            let y = self.block((u, e), sim_state);
+            outputs.push(y);
         }
 
         SimulationResult {
@@ -74,9 +73,9 @@ impl DifferenceEquation {
     pub fn parameters(&self) -> Vec<f64> {
         let mut params = vec![];
 
-        params.extend(self.a.iter());
-        params.extend(self.b.iter());
-        params.extend(self.c.iter());
+        params.extend(self.a.col_as_slice(0));
+        params.extend(self.b.col_as_slice(0));
+        params.extend(self.c.col_as_slice(0));
 
         params
     }
@@ -86,61 +85,61 @@ impl Block for DifferenceEquation {
     type Input = (f64, f64); // (input, error)
     type Output = f64;
 
-    fn output(&mut self, input: Signal<Self::Input>) -> Signal<Self::Output> {
-        if self.b.shape()[1] > 0 {
-            self.last_inputs[[0, 0]] = input.value.0;
+    fn block(&mut self, input: Self::Input, _sim_state: SimulationState) -> Self::Output {
+        if self.b.shape().1 > 0 {
+            self.last_inputs[(0, 0)] = input.0;
         }
-        if self.c.shape()[1] > 0 {
-            self.last_errors[[0, 0]] = input.value.1;
-        }
-
-        let y = self.a.dot(&self.last_outputs)
-            + self.b.dot(&self.last_inputs)
-            + self.c.dot(&self.last_errors);
-
-        for i in (1..self.a.shape()[1]).rev() {
-            self.last_outputs[[i, 0]] = self.last_outputs[[i - 1, 0]];
-        }
-        self.last_outputs[[0, 0]] = y[[0, 0]];
-
-        for i in (1..self.b.shape()[1]).rev() {
-            self.last_inputs[[i, 0]] = self.last_inputs[[i - 1, 0]];
+        if self.c.shape().1 > 0 {
+            self.last_errors[(0, 0)] = input.1;
         }
 
-        for i in (1..self.c.shape()[1]).rev() {
-            self.last_errors[[i, 0]] = self.last_errors[[i - 1, 0]];
+        let y = &self.a * &self.last_outputs
+            + &self.b * &self.last_inputs
+            + &self.c * &self.last_errors;
+
+        for i in (1..self.a.shape().1).rev() {
+            self.last_outputs[(i, 0)] = self.last_outputs[(i - 1, 0)];
+        }
+        self.last_outputs[(0, 0)] = y[(0, 0)];
+
+        for i in (1..self.b.shape().1).rev() {
+            self.last_inputs[(i, 0)] = self.last_inputs[(i - 1, 0)];
         }
 
-        input.map(|_| y[[0, 0]])
+        for i in (1..self.c.shape().1).rev() {
+            self.last_errors[(i, 0)] = self.last_errors[(i - 1, 0)];
+        }
+
+        y[(0, 0)]
     }
 }
 
 impl Display for DifferenceEquation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut output = format!("y[k] = ");
-        for i in 0..self.a.shape()[1] {
-            output += &format!("{:.2}y[k-{}] + ", self.a[[0, i]], i + 1);
+        let mut output = "y[k] = ".to_string();
+        for i in 0..self.a.shape().1 {
+            output += &format!("{:.2}y[k-{}] + ", self.a[(0, i)], i + 1);
         }
-        for i in 0..self.b.shape()[1] {
+        for i in 0..self.b.shape().1 {
             if i == 0 {
-                output += &format!("{:.2}u[k]", self.b[[0, i]]);
+                output += &format!("{:.2}u[k]", self.b[(0, i)]);
             } else {
-                output += &format!("{:.2}u[k-{}]", self.b[[0, i]], i);
+                output += &format!("{:.2}u[k-{}]", self.b[(0, i)], i);
             }
 
-            if i != self.b.shape()[1] - 1 || self.c.shape()[1] > 0 {
+            if i != self.b.shape().1 - 1 || self.c.shape().1 > 0 {
                 output += " + ";
             }
         }
 
-        for i in 0..self.c.shape()[1] {
+        for i in 0..self.c.shape().1 {
             if i == 0 {
-                output += &format!("{:.2}e[k]", self.c[[0, i]]);
+                output += &format!("{:.2}e[k]", self.c[(0, i)]);
             } else {
-                output += &format!("{:.2}e[k-{}]", self.c[[0, i]], i);
+                output += &format!("{:.2}e[k-{}]", self.c[(0, i)], i);
             }
 
-            if i != self.c.shape()[1] - 1 {
+            if i != self.c.shape().1 - 1 {
                 output += " + ";
             }
         }

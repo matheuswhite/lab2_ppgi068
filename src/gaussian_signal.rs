@@ -16,7 +16,7 @@ impl GaussianSignal {
     }
 
     pub fn generate(&mut self) -> f64 {
-        self.rng.sample(&self.normal)
+        self.rng.sample(self.normal)
     }
 }
 
@@ -24,8 +24,7 @@ impl Block for GaussianSignal {
     type Input = ();
     type Output = f64;
 
-    fn output(&mut self, input: Signal<Self::Input>) -> Signal<Self::Output> {
-        let value = self.generate();
-        input.map(|_| value)
+    fn block(&mut self, _input: Self::Input, _sim_state: SimulationState) -> Self::Output {
+        self.generate()
     }
 }

@@ -35,15 +35,15 @@ impl System for FirstSystem {
 
 impl StepResponse for FirstSystem {
     fn step_response(&mut self, title: impl AsRef<str>, dt: f32, total: f32) {
-        let time = Time::new(dt, total);
+        let simulation = Simulation::new(dt, total);
         let mut step = Step::new(1.0);
         let mut plotter = Plotter::new(title.as_ref().to_string(), ["u(t)", "y(t)"]);
         let mut sys = Tf::new(&self.num, &self.den).to_ss_controllable(RK4);
         let mut output = vec![];
 
-        for dt in time {
-            let u = dt * step.as_block();
-            let y = sys.output(u);
+        for sim_state in simulation {
+            let u = sim_state * step.as_block();
+            let y = u * sys.as_block();
             output.push(y.value);
 
             let _ = [u, y].pack() * plotter.as_block();

@@ -34,9 +34,7 @@ impl Block for RandomSignal {
     type Input = ();
     type Output = f64;
 
-    fn output(&mut self, input: Signal<Self::Input>) -> Signal<Self::Output> {
-        let value = self.rng.sample(self.side);
-
-        input.map(|_| value)
+    fn block(&mut self, _input: Self::Input, _sim_state: SimulationState) -> Self::Output {
+        self.rng.sample(self.side)
     }
 }

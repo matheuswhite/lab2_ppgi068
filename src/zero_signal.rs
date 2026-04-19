@@ -6,7 +6,7 @@ impl Block for ZeroSignal {
     type Input = ();
     type Output = f64;
 
-    fn output(&mut self, input: Signal<Self::Input>) -> Signal<Self::Output> {
-        input.map(|_| 0.0)
+    fn block(&mut self, _input: Self::Input, _sim_state: SimulationState) -> Self::Output {
+        0.0
     }
 }

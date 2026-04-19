@@ -1,8 +1,6 @@
-use ndarray::Array2;
-use ndarray::s;
-use ndarray_inverse::Inverse;
-
 use crate::diff_eq::DifferenceEquation;
+use aule::prelude::*;
+use faer::linalg::solvers::DenseSolveCore;
 
 pub struct OrdinaryLeastSquares;
 
@@ -41,29 +39,25 @@ impl OrdinaryLeastSquares {
             psi.push(row);
         }
         let lines = psi.len();
-        let psi = psi.into_iter().flatten().collect::<Vec<_>>();
-        let psi =
-            Array2::from_shape_vec((lines, output_order + input_order + noise_order), psi).unwrap();
+        let psi = Mat::from_fn(lines, output_order + input_order + noise_order, |i, j| {
+            psi[i][j]
+        });
 
-        let y = Array2::from_shape_vec((samples.len(), 1), samples.to_vec()).unwrap();
+        let y = Mat::from_fn(n, 1, |i, _| samples[i]);
 
-        let psi_t = psi.t();
-        let psi_t_psi = psi_t.dot(&psi);
-        let Some(psi_t_psi_inv) = psi_t_psi.inv() else {
-            panic!("Matrix is not invertible");
-        };
-        let psi_t_y = psi_t.dot(&y);
-        let theta = psi_t_psi_inv.dot(&psi_t_y);
+        let psi_t = psi.transpose();
+        let psi_t_psi = psi_t * &psi;
 
-        let a = theta.slice(s![..output_order, 0]).to_owned().into_raw_vec();
-        let b = theta
-            .slice(s![output_order..output_order + input_order, 0])
-            .to_owned()
-            .into_raw_vec();
-        let c = theta
-            .slice(s![output_order + input_order.., 0])
-            .to_owned()
-            .into_raw_vec();
+        let psi_t_psi_inv = psi_t_psi.partial_piv_lu().inverse();
+        let psi_t_y = psi_t * &y;
+        let theta = &psi_t_psi_inv * &psi_t_y;
+
+        let theta = (0..theta.nrows())
+            .map(|i| theta[(i, 0)])
+            .collect::<Vec<_>>();
+        let a = theta[..output_order].to_vec();
+        let b = theta[output_order..output_order + input_order].to_vec();
+        let c = theta[output_order + input_order..].to_vec();
 
         DifferenceEquation::new(&a, &b, &c)
     }

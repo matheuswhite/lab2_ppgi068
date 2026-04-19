@@ -22,13 +22,13 @@ fn eval_armax(filename: impl AsRef<str>, dataset_name: impl AsRef<str>) {
     let mut outputs = vec![];
     let mut inputs = vec![];
 
-    for dt in EndlessTime::new(1.0) {
-        let Some(output) = (dt * data1_output.as_block()).unpack() else {
+    for sim_state in EndlessSimulation::new(1.0) {
+        let Some(output) = (sim_state * data1_output.as_block()).unpack() else {
             break;
         };
         outputs.push(output.value);
 
-        let Some(input) = (dt * data1_input.as_block()).unpack() else {
+        let Some(input) = (sim_state * data1_input.as_block()).unpack() else {
             break;
         };
         inputs.push(input.value);
@@ -48,7 +48,7 @@ fn eval_armax(filename: impl AsRef<str>, dataset_name: impl AsRef<str>) {
         .into_iter()
         .enumerate()
         .map(|(order, sys)| {
-            let sim_res = sys.simulate(total, ArraySignal::new(&validation.1), ZeroSignal);
+            let sim_res = sys.simulate(total, ArraySignal::new(validation.1), ZeroSignal);
             let sse = SSE::eval(validation.0, &sim_res.outputs);
             println!("{} Order system SSE: {}", ordinal_str(order + 1), sse);
             sse
@@ -107,7 +107,7 @@ fn identify_armax_rels(
     dataset_name: impl AsRef<str>,
 ) -> DifferenceEquation {
     let total = outputs.len().min(inputs.len());
-    let time = Time::new(1.0, total as f32);
+    let simulation = Simulation::new(1.0, total as f32);
     let mut rels = RecursiveExtendedLeastSquares::new(1000.0, order);
     let mut theta = vec![0.0; 3 * order];
     let mut plotter = PlotterDynamic::new(
@@ -117,11 +117,11 @@ fn identify_armax_rels(
             .collect::<Vec<_>>(),
     );
 
-    for (i, dt) in time.enumerate() {
+    for (i, sim_state) in simulation.enumerate() {
         let output = outputs[i];
         let input = inputs[i];
 
-        let rls_input = dt.map(|_| (output, input, 0.0)).pack();
+        let rls_input = (output, input, 0.0).as_signal(sim_state).pack();
         let new_theta = rls_input * rels.as_block();
         theta = new_theta.value.clone();
 

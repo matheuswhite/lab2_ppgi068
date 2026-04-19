@@ -16,8 +16,7 @@ impl Block for ArraySignal {
     type Input = ();
     type Output = f64;
 
-    fn output(&mut self, input: Signal<Self::Input>) -> Signal<Self::Output> {
-        let data = self.data.pop().unwrap_or(0.0);
-        input.map(|_| data)
+    fn block(&mut self, _input: Self::Input, _sim_state: SimulationState) -> Self::Output {
+        self.data.pop().unwrap_or(0.0)
     }
 }

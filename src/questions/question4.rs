@@ -9,12 +9,18 @@ use aule::prelude::*;
 pub fn question_4() {
     println!("### Question 4:");
 
-    let (sim_outputs1, arx_mse1) = eval_arx_mse("samples/dados_1.csv");
+    let EvalArxMseOutput {
+        sim_outputs: sim_outputs1,
+        mse_values: arx_mse1,
+    } = eval_arx_mse("samples/dados_1.csv");
     let armax_mse1 = eval_armax_mse("samples/dados_1.csv", sim_outputs1);
     print_table("samples/dados_1.csv", &arx_mse1, &armax_mse1);
     print_justification(&arx_mse1, &armax_mse1);
 
-    let (sim_outputs2, arx_mse2) = eval_arx_mse("samples/dados_2.csv");
+    let EvalArxMseOutput {
+        sim_outputs: sim_outputs2,
+        mse_values: arx_mse2,
+    } = eval_arx_mse("samples/dados_2.csv");
     let armax_mse2 = eval_armax_mse("samples/dados_2.csv", sim_outputs2);
     print_table("samples/dados_2.csv", &arx_mse2, &armax_mse2);
     print_justification(&arx_mse2, &armax_mse2);
@@ -46,7 +52,7 @@ fn print_justification(arx_mse: &[f64], armax_mse: &[f64]) {
     );
 }
 
-fn eval_arx_mse(filename: impl AsRef<str>) -> (Vec<(Vec<f64>, Vec<f64>)>, Vec<f64>) {
+fn eval_arx_mse(filename: impl AsRef<str>) -> EvalArxMseOutput {
     println!("Evaluating ARX MSE for file: {}", filename.as_ref());
 
     let mut data1_output = FileSamples::from_csv(filename.as_ref(), 0, 1).unwrap();
@@ -55,13 +61,13 @@ fn eval_arx_mse(filename: impl AsRef<str>) -> (Vec<(Vec<f64>, Vec<f64>)>, Vec<f6
     let mut outputs = vec![];
     let mut inputs = vec![];
 
-    for dt in EndlessTime::new(1.0) {
-        let Some(output) = (dt * data1_output.as_block()).unpack() else {
+    for sim_state in EndlessSimulation::new(1.0) {
+        let Some(output) = (sim_state * data1_output.as_block()).unpack() else {
             break;
         };
         outputs.push(output.value);
 
-        let Some(input) = (dt * data1_input.as_block()).unpack() else {
+        let Some(input) = (sim_state * data1_input.as_block()).unpack() else {
             break;
         };
         inputs.push(input.value);
@@ -122,7 +128,15 @@ fn eval_arx_mse(filename: impl AsRef<str>) -> (Vec<(Vec<f64>, Vec<f64>)>, Vec<f6
         mse_values[best_order - 1]
     );
 
-    (sim_outputs, mse_values)
+    EvalArxMseOutput {
+        sim_outputs,
+        mse_values,
+    }
+}
+
+struct EvalArxMseOutput {
+    sim_outputs: Vec<(Vec<f64>, Vec<f64>)>,
+    mse_values: Vec<f64>,
 }
 
 fn eval_armax_mse(filename: impl AsRef<str>, sim_outputs: Vec<(Vec<f64>, Vec<f64>)>) -> Vec<f64> {
@@ -134,13 +148,13 @@ fn eval_armax_mse(filename: impl AsRef<str>, sim_outputs: Vec<(Vec<f64>, Vec<f64
     let mut outputs = vec![];
     let mut inputs = vec![];
 
-    for dt in EndlessTime::new(1.0) {
-        let Some(output) = (dt * data1_output.as_block()).unpack() else {
+    for sim_state in EndlessSimulation::new(1.0) {
+        let Some(output) = (sim_state * data1_output.as_block()).unpack() else {
             break;
         };
         outputs.push(output.value);
 
-        let Some(input) = (dt * data1_input.as_block()).unpack() else {
+        let Some(input) = (sim_state * data1_input.as_block()).unpack() else {
             break;
         };
         inputs.push(input.value);
@@ -191,7 +205,7 @@ fn eval_armax_mse(filename: impl AsRef<str>, sim_outputs: Vec<(Vec<f64>, Vec<f64
         .map(|(order, sys)| {
             let sim_res = sys.simulate(
                 total,
-                ArraySignal::new(&validation.1),
+                ArraySignal::new(validation.1),
                 ArraySignal::new(&noises[order].1),
             );
             let mse = SSE::eval(validation.0, &sim_res.outputs) / total as f64;

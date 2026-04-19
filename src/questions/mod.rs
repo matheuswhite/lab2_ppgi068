@@ -34,6 +34,7 @@ pub fn print_table(title: impl AsRef<str>, arx_mse: &[f64], armax_mse: &[f64]) {
     }
 }
 
+#[allow(clippy::upper_case_acronyms)]
 pub struct SSE;
 
 impl SSE {

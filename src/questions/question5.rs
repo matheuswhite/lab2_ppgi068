@@ -10,14 +10,20 @@ use aule::prelude::*;
 
 pub fn question_5() {
     println!("### Question 5:");
-    let (sim_outputs3, arx_mse3) = eval_arx_mse("dados3", "samples/dados_3.csv");
+    let EvalArxMseOutput {
+        sim_outputs: sim_outputs3,
+        mse_values: arx_mse3,
+    } = eval_arx_mse("dados3", "samples/dados_3.csv");
     let armax_mse3 = eval_armax_mse("dados3", "samples/dados_3.csv", sim_outputs3);
     print_table("samples/dados_3.csv", &arx_mse3, &armax_mse3);
     println!(
         "Conclusão dados_3: Os parâmetros não convergem ao longo das 250 amostras - continuam se ajustando até o fim. Isso indica um sistema VARIANTE NO TEMPO.\n"
     );
 
-    let (sim_outputs4, arx_mse4) = eval_arx_mse("dados4", "samples/dados_4.csv");
+    let EvalArxMseOutput {
+        sim_outputs: sim_outputs4,
+        mse_values: arx_mse4,
+    } = eval_arx_mse("dados4", "samples/dados_4.csv");
     let armax_mse4 = eval_armax_mse("dados4", "samples/dados_4.csv", sim_outputs4);
     print_table("samples/dados_4.csv", &arx_mse4, &armax_mse4);
     println!(
@@ -25,10 +31,7 @@ pub fn question_5() {
     );
 }
 
-fn eval_arx_mse(
-    dataset_name: impl AsRef<str>,
-    filename: impl AsRef<str>,
-) -> (Vec<(Vec<f64>, Vec<f64>)>, Vec<f64>) {
+fn eval_arx_mse(dataset_name: impl AsRef<str>, filename: impl AsRef<str>) -> EvalArxMseOutput {
     println!("Evaluating ARX SSE for file: {}", filename.as_ref());
 
     let mut data1_output = FileSamples::from_csv(filename.as_ref(), 0, 1).unwrap();
@@ -37,13 +40,13 @@ fn eval_arx_mse(
     let mut outputs = vec![];
     let mut inputs = vec![];
 
-    for dt in EndlessTime::new(1.0) {
-        let Some(output) = (dt * data1_output.as_block()).unpack() else {
+    for sim_state in EndlessSimulation::new(1.0) {
+        let Some(output) = (sim_state * data1_output.as_block()).unpack() else {
             break;
         };
         outputs.push(output.value);
 
-        let Some(input) = (dt * data1_input.as_block()).unpack() else {
+        let Some(input) = (sim_state * data1_input.as_block()).unpack() else {
             break;
         };
         inputs.push(input.value);
@@ -95,7 +98,15 @@ fn eval_arx_mse(
         mse_values[best_order - 1]
     );
 
-    (sim_outputs, mse_values)
+    EvalArxMseOutput {
+        sim_outputs,
+        mse_values,
+    }
+}
+
+struct EvalArxMseOutput {
+    sim_outputs: Vec<(Vec<f64>, Vec<f64>)>,
+    mse_values: Vec<f64>,
 }
 
 fn identify_arx_rls(
@@ -105,7 +116,7 @@ fn identify_arx_rls(
     dataset_name: impl AsRef<str>,
 ) -> DifferenceEquation {
     let total = outputs.len().min(inputs.len());
-    let time = Time::new(1.0, total as f32);
+    let simulation = Simulation::new(1.0, total as f32);
     let mut rls = RecursiveLeastSquares::new(1000.0, order);
     let mut theta = vec![0.0; 2 * order];
     let mut plotter = PlotterDynamic::new(
@@ -115,12 +126,11 @@ fn identify_arx_rls(
             .collect::<Vec<_>>(),
     );
 
-    for (i, dt) in time.enumerate() {
+    for (i, sim_state) in simulation.enumerate() {
         let output = outputs[i];
         let input = inputs[i];
 
-        let rls_input = dt.map(|_| (output, input)).pack();
-        let new_theta = rls_input * rls.as_block();
+        let new_theta = (output, input).as_signal(sim_state).pack() * rls.as_block();
         theta = new_theta.value.clone();
 
         let _ = new_theta * plotter.as_block();
@@ -153,13 +163,13 @@ fn eval_armax_mse(
     let mut outputs = vec![];
     let mut inputs = vec![];
 
-    for dt in EndlessTime::new(1.0) {
-        let Some(output) = (dt * data1_output.as_block()).unpack() else {
+    for sim_state in EndlessSimulation::new(1.0) {
+        let Some(output) = (sim_state * data1_output.as_block()).unpack() else {
             break;
         };
         outputs.push(output.value);
 
-        let Some(input) = (dt * data1_input.as_block()).unpack() else {
+        let Some(input) = (sim_state * data1_input.as_block()).unpack() else {
             break;
         };
         inputs.push(input.value);
@@ -241,7 +251,7 @@ fn identify_armax_rels(
     dataset_name: impl AsRef<str>,
 ) -> DifferenceEquation {
     let total = outputs.len().min(inputs.len());
-    let time = Time::new(1.0, total as f32);
+    let simulation = Simulation::new(1.0, total as f32);
     let mut rels = RecursiveExtendedLeastSquares::new(1000.0, order);
     let mut theta = vec![0.0; 3 * order];
     let mut plotter = PlotterDynamic::new(
@@ -251,12 +261,12 @@ fn identify_armax_rels(
             .collect::<Vec<_>>(),
     );
 
-    for (i, dt) in time.enumerate() {
+    for (i, sim_state) in simulation.enumerate() {
         let output = outputs[i];
         let input = inputs[i];
         let noise = noises[i];
 
-        let rels_input = dt.map(|_| (output, input, noise)).pack();
+        let rels_input = (output, input, noise).as_signal(sim_state).pack();
         let new_theta = rels_input * rels.as_block();
         theta = new_theta.value.clone();
 

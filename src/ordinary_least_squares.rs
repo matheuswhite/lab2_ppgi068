@@ -1,6 +1,5 @@
 use crate::diff_eq::DifferenceEquation;
-use aule::prelude::*;
-use faer::linalg::solvers::DenseSolveCore;
+use aule::prelude::DMatrix;
 
 pub struct OrdinaryLeastSquares;
 
@@ -39,17 +38,17 @@ impl OrdinaryLeastSquares {
             psi.push(row);
         }
         let lines = psi.len();
-        let psi = Mat::from_fn(lines, output_order + input_order + noise_order, |i, j| {
+        let psi = DMatrix::from_fn(lines, output_order + input_order + noise_order, |i, j| {
             psi[i][j]
         });
 
-        let y = Mat::from_fn(n, 1, |i, _| samples[i]);
+        let y = DMatrix::from_fn(n, 1, |i, _| samples[i]);
 
         let psi_t = psi.transpose();
-        let psi_t_psi = psi_t * &psi;
+        let psi_t_psi = &psi_t * &psi;
 
-        let psi_t_psi_inv = psi_t_psi.partial_piv_lu().inverse();
-        let psi_t_y = psi_t * &y;
+        let psi_t_psi_inv = psi_t_psi.try_inverse().expect("psi_t * psi is not invertible");
+        let psi_t_y = &psi_t * &y;
         let theta = &psi_t_psi_inv * &psi_t_y;
 
         let theta = (0..theta.nrows())

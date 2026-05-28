@@ -1,9 +1,9 @@
 use aule::prelude::*;
 
 pub struct RecursiveExtendedLeastSquares {
-    last_theta: Mat<f64>,
-    last_p: Mat<f64>,
-    phi: Mat<f64>,
+    last_theta: DMatrix<f64>,
+    last_p: DMatrix<f64>,
+    phi: DMatrix<f64>,
 }
 
 pub struct RELSInput {
@@ -15,9 +15,9 @@ pub struct RELSInput {
 impl RecursiveExtendedLeastSquares {
     pub fn new(alpha: f64, order: usize) -> Self {
         Self {
-            last_theta: Mat::zeros(3 * order, 1),
-            last_p: Mat::<f64>::identity(3 * order, 3 * order) * alpha,
-            phi: Mat::zeros(3 * order, 1),
+            last_theta: DMatrix::zeros(3 * order, 1),
+            last_p: DMatrix::<f64>::identity(3 * order, 3 * order) * alpha,
+            phi: DMatrix::zeros(3 * order, 1),
         }
     }
 
@@ -49,10 +49,10 @@ impl Block for RecursiveExtendedLeastSquares {
         let kalman_gain_den = 1.0 + (self.phi.transpose() * &self.last_p * &self.phi)[(0, 0)];
         let kalman_gain = kalman_gain_num / kalman_gain_den;
 
-        let y_k = mat![[input.output]];
+        let y_k = DMatrix::from_element(1, 1, input.output);
         self.last_theta = self.last_theta.clone()
             + &kalman_gain * &(y_k - self.phi.transpose() * &self.last_theta);
-        self.last_p = (Mat::<f64>::identity(3 * self.order(), 3 * self.order())
+        self.last_p = (DMatrix::<f64>::identity(3 * self.order(), 3 * self.order())
             - kalman_gain * self.phi.transpose())
             * &self.last_p;
 

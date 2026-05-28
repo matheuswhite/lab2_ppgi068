@@ -5,12 +5,12 @@ use crate::gaussian_signal::GaussianSignal;
 
 #[derive(Debug, Clone)]
 pub struct DifferenceEquation {
-    a: Mat<f64>,
-    last_outputs: Mat<f64>,
-    b: Mat<f64>,
-    last_inputs: Mat<f64>,
-    c: Mat<f64>,
-    last_errors: Mat<f64>,
+    a: DMatrix<f64>,
+    last_outputs: DMatrix<f64>,
+    b: DMatrix<f64>,
+    last_inputs: DMatrix<f64>,
+    c: DMatrix<f64>,
+    last_errors: DMatrix<f64>,
 }
 
 #[derive(Debug, Clone)]
@@ -32,12 +32,12 @@ impl SimulationResult {
 impl DifferenceEquation {
     pub fn new(a: &[f64], b: &[f64], c: &[f64]) -> Self {
         Self {
-            a: Mat::from_fn(1, a.len(), |_, j| a[j]),
-            last_outputs: Mat::from_fn(a.len(), 1, |i, _| a[i]),
-            b: Mat::from_fn(1, b.len(), |_, j| b[j]),
-            last_inputs: Mat::from_fn(b.len(), 1, |i, _| b[i]),
-            c: Mat::from_fn(1, c.len(), |_, j| c[j]),
-            last_errors: Mat::from_fn(c.len(), 1, |i, _| c[i]),
+            a: DMatrix::from_fn(1, a.len(), |_, j| a[j]),
+            last_outputs: DMatrix::from_fn(a.len(), 1, |i, _| a[i]),
+            b: DMatrix::from_fn(1, b.len(), |_, j| b[j]),
+            last_inputs: DMatrix::from_fn(b.len(), 1, |i, _| b[i]),
+            c: DMatrix::from_fn(1, c.len(), |_, j| c[j]),
+            last_errors: DMatrix::from_fn(c.len(), 1, |i, _| c[i]),
         }
     }
 
@@ -73,9 +73,9 @@ impl DifferenceEquation {
     pub fn parameters(&self) -> Vec<f64> {
         let mut params = vec![];
 
-        params.extend(self.a.col_as_slice(0));
-        params.extend(self.b.col_as_slice(0));
-        params.extend(self.c.col_as_slice(0));
+        params.extend(self.a.column(0).iter());
+        params.extend(self.b.column(0).iter());
+        params.extend(self.c.column(0).iter());
 
         params
     }
